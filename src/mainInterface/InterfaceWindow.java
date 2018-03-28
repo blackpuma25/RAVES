@@ -1,6 +1,9 @@
 package mainInterface;
 
 import javax.swing.JFrame;
+
+import visualizer.Visualization;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -15,7 +18,7 @@ public class InterfaceWindow extends JFrame{
 	private static int height = 500;
 	
 	/* Objects for each component interface */
-	private VisualizationPanel vPanel;
+	private Visualization vPanel;
 	private PlayerPanel pPanel;
 	private FileMenu fPanel;
 	private OptionsMenu oPanel;
@@ -37,7 +40,7 @@ public class InterfaceWindow extends JFrame{
 		getContentPane().setLayout(null);
 		
 		/* Initialize interfaces for each component */
-		vPanel = new VisualizationPanel();
+		vPanel = new Visualization();
 		vPanel.setSize(1000, 450);
 		vPanel.setLocation(0, 125);
 		getContentPane().add(vPanel);
@@ -60,7 +63,9 @@ public class InterfaceWindow extends JFrame{
 		tPanel.setSize(225, 103);
 		tPanel.setLocation(775, 575);
 		getContentPane().add(tPanel);
-		
+		vPanel.setVisible(true);
+		add(vPanel);
+		vPanel.setVisible(true);
 	}
 	
 	public static void main(String[] args) {
