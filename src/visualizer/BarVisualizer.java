@@ -1,11 +1,13 @@
 package visualizer;
 
-public class BarVisualization extends Visualizer {
+public class BarVisualizer extends Visualizer {
 
 	private Visualization vis;
-	
-	public BarVisualization() {
+	private BarVisualizerThread thread;
+	private boolean hasPlayed = false;
+	public BarVisualizer() {
 		vis  = new Visualization();
+		thread = new BarVisualizerThread(vis, null);
 		
 	
 	}
@@ -20,13 +22,20 @@ public class BarVisualization extends Visualizer {
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-
+		if(hasPlayed) {
+			thread.suspend();
+		}
 	}
 
 	@Override
 	public void play() {
-		// TODO Auto-generated method stub
-
+		if(!hasPlayed) {
+		thread.play();
+		thread.start();
+		hasPlayed = true;
+		}else if(hasPlayed) {
+		thread.resume();
+		}
 	}
 
 	@Override

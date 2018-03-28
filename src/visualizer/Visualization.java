@@ -13,8 +13,11 @@ public class Visualization extends JPanel{
 	int y = 50;
 	int width = 1000;
 	int height = 450;
+	int barwidth = 70;
+	int gap = 10;
 	private double input[];
 	public Thread thread;
+	private boolean running = false;
 	public Visualization() {
 		setBackground(Color.WHITE);
 		setBounds(x, y, width, height);
@@ -27,20 +30,27 @@ public class Visualization extends JPanel{
 		txtVisualiztionPanel.setBounds(430, 217, 130, 26);
 		add(txtVisualiztionPanel);
 		txtVisualiztionPanel.setColumns(10);
-		thread = new BarVisualizerThread(this, null);
-		thread.start();
-		repaint();
+//		thread = new BarVisualizerThread(this, null);
+//		thread.start();
+		//repaint();
 	}
 	
 	public void giveInput(double[] i) {
 	input = i;
 	}
 	
+	public void start() {
+		running = true;
+	}
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.setColor(Color.red);
+		if(running) {
+			g.setColor(Color.red);
+		
 		for (int i = 0; i< input.length; i++) {
-			g.fillRect(10 + (80 * i), (int)(height - (20 * input[i])), 100, (int)(input[i] * 20));
+			g.fillRect(10 + (barwidth + gap) * i, (int)(height - (20 * input[i])), barwidth, (int)(input[i] * 20));
+		}
 		}
 		
 	}

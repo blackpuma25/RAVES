@@ -2,7 +2,7 @@ package mainInterface;
 
 import javax.swing.JFrame;
 
-import visualizer.Visualization;
+import visualizer.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +24,7 @@ public class InterfaceWindow extends JFrame{
 	private OptionsMenu oPanel;
 	private AnalyticsDisplay aPanel;
 	private TutorialPanel tPanel;
+	private static Visualizer visualizer;
 	
 	/* The file choosen by the user */
 	private File file;
@@ -39,8 +40,12 @@ public class InterfaceWindow extends JFrame{
 		setVisible(true);
 		getContentPane().setLayout(null);
 		
+		//get visualizer from settings eventually
+		visualizer = new BarVisualizer();
+		
+		
 		/* Initialize interfaces for each component */
-		vPanel = new Visualization();
+		vPanel = visualizer.getVisualization();
 		vPanel.setSize(1000, 450);
 		vPanel.setLocation(0, 125);
 		getContentPane().add(vPanel);
@@ -66,6 +71,10 @@ public class InterfaceWindow extends JFrame{
 		vPanel.setVisible(true);
 		add(vPanel);
 		vPanel.setVisible(true);
+	}
+	
+	public static Visualizer getVisualizer() {
+		return visualizer;
 	}
 	
 	public static void main(String[] args) {

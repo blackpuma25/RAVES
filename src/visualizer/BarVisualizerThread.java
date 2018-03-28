@@ -10,7 +10,7 @@ public class BarVisualizerThread extends Thread{
 								{4, 5, 5, 5, 5, 5, 5, 5, 6, 7},
 								{5, 5, 5, 5, 5, 5, 5, 5, 5, 5}
 																};
-	private boolean playing = true;
+	private boolean playing = false;
 	private int delay = 1000;
 	
 	public BarVisualizerThread(Visualization vis, double[][] data) {
@@ -18,14 +18,20 @@ public class BarVisualizerThread extends Thread{
 		//this.data = data;
 	}
 	
-
+	public void play() {
+		//check if data loaded?
+		playing = true;
+		vis.start();
+	}
+	
+	public void pause() {
+	}
 
 	public void run() {
 		int i = 0;
 		
-		while(playing) {
+		while(playing && data[i] != null) {
 		System.out.println(i);
-		System.out.println(data[i]);
 		vis.giveInput(data[i]);
 		vis.repaint();
 		i++;

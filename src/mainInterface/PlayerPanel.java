@@ -37,10 +37,12 @@ public class PlayerPanel extends JPanel {
 				/* Play/pause audio file */
 				
 				if (btnPlay.getText() == "Play") {
+					InterfaceWindow.getVisualizer().play();
 					Playback.play();
 					btnPlay.setText("Pause");
 				}
 				else {
+					InterfaceWindow.getVisualizer().pause();
 					Playback.pause();
 					btnPlay.setText("Play");
 				}
