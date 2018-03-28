@@ -13,7 +13,7 @@ public class OptionsMenu extends JPanel {
 	
 	public OptionsMenu() {
 		setBackground(new Color(112, 128, 144));
-		setBounds(0, 400, 100, 78);
+		setBounds(0, 400, 225, 103);
 		setLayout(null);
 		
 		txtOptionsMenu = new JTextField();
@@ -21,7 +21,7 @@ public class OptionsMenu extends JPanel {
 		txtOptionsMenu.setHorizontalAlignment(SwingConstants.CENTER);
 		txtOptionsMenu.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		txtOptionsMenu.setText("Options Menu");
-		txtOptionsMenu.setBounds(6, 29, 88, 26);
+		txtOptionsMenu.setBounds(67, 36, 88, 26);
 		add(txtOptionsMenu);
 		txtOptionsMenu.setColumns(10);
 	}

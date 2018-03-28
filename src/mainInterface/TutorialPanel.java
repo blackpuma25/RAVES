@@ -16,14 +16,14 @@ public class TutorialPanel extends JPanel {
 	
 	public TutorialPanel() {
 		setBackground(new Color(112, 128, 144));
-		setBounds(500, 400, 100, 78);
+		setBounds(500, 400, 225, 103);
 		setLayout(null);
 		
 		txtTutorial = new JTextField();
 		txtTutorial.setBackground(Color.LIGHT_GRAY);
 		txtTutorial.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTutorial.setText("Tutorial");
-		txtTutorial.setBounds(6, 28, 88, 26);
+		txtTutorial.setBounds(69, 37, 88, 26);
 		add(txtTutorial);
 		txtTutorial.setColumns(10);
 		
