@@ -38,12 +38,14 @@ public class Playback {
 		try {
 			audioStream = AudioSystem.getAudioInputStream(audioFile);
 			clip = AudioSystem.getClip();
+			clip.open(audioStream);
 		} catch (UnsupportedAudioFileException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		audioFMT = audioStream.getFormat();
+        //clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 	
 	/* Checks if file format is supported for this program */
