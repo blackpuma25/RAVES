@@ -37,12 +37,14 @@ public class FileChooser {
 		currentFile = fc.getSelectedFile();
 		FileMenu.setSelecting(false);
 		FileMenu.updateFields();
+		Playback.setAudioFile(FileChooser.getCurrrentFile());
 		try {
-			Playback.setAudioFile();
+			Playback.createAudioStream();
 		} catch (LineUnavailableException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		Playback.isSupportedAudioFile();
 		
 	}
 	

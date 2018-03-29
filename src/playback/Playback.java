@@ -27,10 +27,18 @@ public class Playback {
 	/************************ Methods 
 	 * @throws LineUnavailableException *******************************/
 	
-	public static void setAudioFile() throws LineUnavailableException {
-		audioFile = FileChooser.getCurrrentFile();
-		createAudioStream();
-		isSupportedAudioFile();
+	public static void setAudioFile(File file){
+		audioFile = file;
+		//createAudioStream();
+		//isSupportedAudioFile();
+	}
+	
+	public static AudioInputStream getAudioStream() {
+		return audioStream;
+	}
+	
+	public static AudioFormat getAudioFormat() {
+		return audioFMT;
 	}
 	
 	/* Creates the audio stream and formating instance of audio file */
