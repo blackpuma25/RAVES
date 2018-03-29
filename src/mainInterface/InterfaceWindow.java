@@ -71,6 +71,7 @@ public class InterfaceWindow extends JFrame{
 		vPanel.setVisible(true);
 		add(vPanel);
 		vPanel.setVisible(true);
+		repaint();
 	}
 	
 	public static Visualizer getVisualizer() {
