@@ -1,6 +1,6 @@
 package visualizer;
 
-public abstract class Visualizer {
+public abstract class Visualizer extends Thread {
 
 	public abstract Visualization getVisualization();
 	
