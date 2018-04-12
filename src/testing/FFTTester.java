@@ -1,8 +1,9 @@
 package testing;
 
-import static org.junit.jupiter.api.Assumptions.assumingThat;
-
+import static org.junit.Assert.assertEquals;
 import java.io.File;
+
+import org.junit.Test;
 
 import fftHandler.FFTHandler;
 
@@ -11,9 +12,11 @@ public class FFTTester {
 	private static double[][] reference;
 	private static File audioFile = new File("/Users/Batman/Documents/GitHub/RAVES/src/testing/A River Flows in You.wav"); //pathname may need to be edited for testing on personal machine;
 	
-	public static void main(String[] args) {
-		
+	@SuppressWarnings("deprecation")
+	@Test
+	public void getData() throws Exception {
 		reference = FFTHandler.getData(audioFile);
+		double[][] reference2;
 		
 		FFTHandler.setAudioFile(audioFile);
 		FFTHandler.createAudioStream();
@@ -21,11 +24,9 @@ public class FFTTester {
 		FFTHandler.calculateDataPoints();
 		FFTHandler.splitAudio();
 		FFTHandler.convertByteChunks();
-		FFTHandler.getFFTData();
+		reference2 = FFTHandler.getFFTData();
 		
-		
-		int length = FFTHandler.getFFTData().length;
-		System.out.println(length);
+		assertEquals(reference, reference2);
+		assertEquals(reference.length, reference2.length);
 	}
-
 }

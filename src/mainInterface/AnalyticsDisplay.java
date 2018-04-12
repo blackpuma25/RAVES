@@ -8,6 +8,10 @@ import javax.swing.SwingConstants;
 
 public class AnalyticsDisplay extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField txtAnalyticsDisplay;
 	
 	public AnalyticsDisplay() {

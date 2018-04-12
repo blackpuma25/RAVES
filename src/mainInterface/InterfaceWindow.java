@@ -4,8 +4,6 @@ import javax.swing.JFrame;
 
 import visualizer.*;
 
-import java.io.File;
-import java.io.IOException;
 
 public class InterfaceWindow extends JFrame{
 	
@@ -13,10 +11,7 @@ public class InterfaceWindow extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	/* Current Dimensions for main window */
-	private static int width = 600;
-	private static int height = 500;
-	
+
 	/* Objects for each component interface */
 	private Visualization vPanel;
 	private PlayerPanel pPanel;
@@ -25,9 +20,6 @@ public class InterfaceWindow extends JFrame{
 	private AnalyticsDisplay aPanel;
 	private TutorialPanel tPanel;
 	private static Visualizer visualizer;
-	
-	/* The file choosen by the user */
-	private File file;
 	
 	
 	
@@ -76,9 +68,6 @@ public class InterfaceWindow extends JFrame{
 	
 	public static Visualizer getVisualizer() {
 		return visualizer;
-	}
-	public static File getFile() {
-		return null;
 	}
 	
 	public static void main(String[] args) {

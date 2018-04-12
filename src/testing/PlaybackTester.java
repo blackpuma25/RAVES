@@ -1,7 +1,6 @@
 package testing;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 
@@ -38,9 +37,7 @@ class PlaybackTester {
 		
 		/* non-audio file test */
 		Playback.setAudioFile(nonAudioFile);
-		Playback.createAudioStream();
-		
-		
+		Playback.createAudioStream();	
 	}
 	
 	@Test
@@ -61,12 +58,35 @@ class PlaybackTester {
 		Playback.isSupportedAudioFile();
 		assertEquals(false, Playback.getAudioStream().markSupported());
 		assertEquals(44100, (int) Playback.getAudioFormat().getSampleRate());
-		//Playback.g
 		
 		/* non-audio file test */
 		Playback.setAudioFile(nonAudioFile);
 		Playback.createAudioStream();
+	}
+	
+	@Test
+	public void getDuration() throws Exception {
 		
+		/* null test */
+		Playback.setAudioFile(nullFile);
+		String msg = null;
+		try {
+			Playback.getDuration();
+		} catch (NullPointerException e) {
+			msg = "File Not Found";
+		}
+		assertEquals("File Not Found", msg);
+		
+		/* audio file test */
+		Playback.setAudioFile(audioFile);
+		Playback.createAudioStream();
+		assertEquals((int) 281, (int) Playback.getDuration());
+		
+		/*non-audio file test */
+		Playback.setAudioFile(nonAudioFile);
+		Playback.createAudioStream();
+		//Playback.getDuration();
+		assertEquals(0, (int) Playback.getDuration());	
 	}
 
 }

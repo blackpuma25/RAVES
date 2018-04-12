@@ -17,7 +17,7 @@ public class FFTHandler {
 	/*********************************** Fields *******************************************/
 	
 	private static double[][] fftData; //The data used by the visualizer and analytics
-	private static float timeInterval = (float) .1; //initialized to one second intervals
+	private static float timeInterval = (float) .1; //initialized to tenth second intervals
 	private static int windowSize = 64; //default resolution of window size
 	
 	private static File audioFile; //instance of audio file
@@ -66,9 +66,9 @@ public class FFTHandler {
 				e.printStackTrace();
 			}
 			chunks.add(byteBuffer);
-			System.out.println("Bytes Read for t = " + i + ": " + bytesRead);
+			//System.out.println("Bytes Read for t = " + i + ": " + bytesRead);
 		}
-		System.out.println("");
+		//System.out.println("");
 	}
 	
 	/* Returns the number of bytes in a single time interval */
@@ -176,17 +176,6 @@ public class FFTHandler {
 	
 	public static void setAudioFile(File file) {
 		audioFile = file;
-	}
-	
-	public static void main(String[] args) {
-		audioFile = getAudioFile();
-		createAudioStream();
-		getBytesPerTimeInterval();
-		calculateDataPoints();
-		splitAudio();
-		convertByteChunks();
-		getFFTData();
-		
 	}
 
 }
