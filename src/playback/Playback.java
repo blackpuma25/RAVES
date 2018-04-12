@@ -31,9 +31,11 @@ public class Playback {
 	private static double position = 0; //value that maintains position in seconds
 	private static boolean playing = false; //tracks if sound is playing
 	
+	private static int minutes;
+	private static int seconds;
 	
-	/************************************** Methods 
-	 * @return *****************************************/
+	
+	/************************************** Methods *****************************************/
 	
 	/* Creates the audio stream and formating instance of audio file */
 	public static AudioInputStream createAudioStream() throws LineUnavailableException {
@@ -141,6 +143,22 @@ public class Playback {
 		float frameRate = audioFMT.getFrameRate();
 		double fullDuration = audioFileLength / (frameSize * frameRate);
 		return fullDuration;	
+	}
+	
+	public static String convertToMinSeconds (int seconds) {
+		int minutes = seconds / 60;
+		seconds = seconds % 60;
+		
+		return getDigits(minutes) + " : " + getDigits(seconds);
+	}
+	
+	public static String getDigits (int n) {
+		if (n == 0)
+			return "00";
+		if (n / 10 == 0)
+			return "0" + n;
+		return String.valueOf(n);
+		
 	}
 	
 	/**************************** Getters and Setters *******************************/

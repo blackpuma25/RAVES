@@ -9,7 +9,7 @@ public class Position extends Thread {
 		System.out.println("Starting position thread");
 		do {
 			PlayerPanel.getSlider().setValue((int) Playback.getPosition());
-			PlayerPanel.getTextField().setText(String.valueOf((int) Playback.getPosition()));
+			PlayerPanel.getTextField().setText(Playback.convertToMinSeconds((int) Playback.getPosition() ));
 			if (Playback.isPlaying()) {
 				Playback.setPosition(Playback.getClip().getMicrosecondPosition());
 			}

@@ -111,7 +111,7 @@ public class PlayerPanel extends JPanel {
 	}
 	
 	public static void updateDuration() {
-		textField_1.setText(String.valueOf((int) Playback.getDuration()));
+		textField_1.setText(Playback.convertToMinSeconds((int) Playback.getDuration()));
 		slider.setMaximum((int) Playback.getDuration());
 		
 	}
