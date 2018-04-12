@@ -14,12 +14,13 @@ import fileSelection.FileChooser;
 
 public class FileMenu extends JPanel{
 	
+	/************* Fields *******************/
+	private static final long serialVersionUID = 1L;
 	private static JTextField txtFileMenu;
 	private static JTextField txtFileName;
 	private static JTextField txtFilePath;
 	
-	private static boolean selecting = false;
-	
+	/********** Constructor *****************/
 	public FileMenu() {
 		setBackground(new Color(65, 105, 225));
 		setBounds(0, 0, 500, 126);
@@ -58,14 +59,11 @@ public class FileMenu extends JPanel{
 		txtFilePath.setColumns(10);
 	}
 	
-	public static void setSelecting(boolean select) {
-		selecting = select;
-	}
+	/****************** Methods *********************/
 	
 	public static void updateFields() {
-		if (!selecting) {
-			txtFileName.setText("File Name: " + FileChooser.getFileName());
-			txtFilePath.setText("File Path: " + FileChooser.getFilePath());
-		}
+		txtFileName.setText("File Name: " + FileChooser.getFileName());
+		txtFilePath.setText("File Path: " + FileChooser.getFilePath());
 	}
+	
 }

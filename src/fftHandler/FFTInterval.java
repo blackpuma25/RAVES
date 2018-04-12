@@ -1,12 +1,10 @@
 package fftHandler;
 
-import java.util.List;
+//import java.util.List;
 
 public class FFTInterval {
 	
-	private List<double[]> sampleData; //Stores data calculated from AudioAnalyzer.java
 	private static double[] fftData = new double[FFTHandler.getWindowSize()]; //Initialized to frequency resolution
-	private int timeInterval; //Time interval for thread to evaluate
 	
 	/* Calculates FFT from given double[] data */
 	public static void calculateFFT(double[] samples) {

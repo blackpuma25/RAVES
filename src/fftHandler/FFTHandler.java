@@ -14,30 +14,29 @@ import playback.Playback;
 
 public class FFTHandler {
 	
-	private static double[][] fftData;
+	/*********************************** Fields *******************************************/
+	
+	private static double[][] fftData; //The data used by the visualizer and analytics
 	private static float timeInterval = 1; //initialized to one second intervals
-	private static double frequencyBand;
 	private static int windowSize = 64; //default resolution of window size
 	
 	private static File audioFile; //instance of audio file
 	private static AudioInputStream audioStream; //instance of audio to read data
 	private static AudioFormat audioFMT; //keeps audio formatting info (sample rate, number of channels, etc.)
-	private static float Bps; //Bytes per second
 	private static float bytesPerInterval; //stores number of bytes for specified time interval
 	
 	private static List<byte[]> chunks; //stores the byte information for each time interval in audio file
-	private static double[] sampleData; //stores byte chunks as double to calculate fft
+	private static List<double[]> sampleData; //stores byte chunks as double to calculate fft
 	private static int dataPoints; //stores number of points to calculate FFT (determined by timeInterval)
 	
+	/****************************************** Methods **************************************/
 	
-	public static int getWindowSize() {
-		return windowSize;
-	}
-	
+	/* Retrieves chosen audio file from File Chooser */
 	public static File getAudioFile() {
 		return FileChooser.getCurrrentFile();
 	}
 	
+	/* Create audio stream for data analysis */
 	public static void createAudioStream() {
 		try {
 			audioStream = AudioSystem.getAudioInputStream(audioFile);
@@ -49,7 +48,7 @@ public class FFTHandler {
 		audioFMT = audioStream.getFormat();
 	}
 	
-	/* Divides audio data into small chunks for threads to handle */
+	/* Divides audio data into small chunks */
 	public static void splitAudio() {
 		chunks = new ArrayList<byte[]>();
 		int length = (int) bytesPerInterval;
@@ -72,6 +71,62 @@ public class FFTHandler {
 		System.out.println("");
 	}
 	
+	/* Returns the number of bytes in a single time interval */
+	public static float getBytesPerTimeInterval() {
+		return getBytesPerSecond() * timeInterval;
+	}
+	
+	/* Converts entire list of byte chunks from audio */
+	public static void convertByteChunks() {
+		sampleData = new ArrayList<double[]>();
+		for(int i = 0; i < chunks.size(); i++) {
+			try {
+				sampleData.add(i, convertToDouble(chunks.get(i)));
+			} catch (UnsupportedAudioFileException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/* Gets entire FFT data structure from audio file */
+	public static double[][] getFFTData() {
+		fftData = new double[dataPoints][windowSize];
+		
+		for (int i = 0; i < dataPoints; i++) { //for each time interval
+			FFTInterval.calculateFFT(sampleData.get(i));
+			FFTInterval.getFFTData();
+			for (int j = 0; j < windowSize; j++) { //for each frequency
+				fftData[i][j] = FFTInterval.getFFTData()[j];
+				
+			}
+		}
+		return fftData;
+	}
+	
+	/****************************** Helper Methods ***************************************/
+	
+	/* Returns window size (frequency resolution) */
+	public static int getWindowSize() {
+		return windowSize;
+	}
+	
+	/* Calculates number of time intervals in file (time resolution) */
+	public static void calculateDataPoints() {
+		//dataPoints = (int) ((int) Playback.getDuration()/timeInterval); //What we will use
+		
+		dataPoints = (int) (getDuration()/timeInterval);
+	}
+	
+	/* Calculates the duration of the audio file in seconds */
+	public static double getDuration() { //Extra method to be deleted
+		long audioFileLength = audioFile.length();
+		int frameSize = audioFMT.getFrameSize();
+		float frameRate = audioFMT.getFrameRate();
+		double fullDuration = audioFileLength / (frameSize * frameRate);
+		return fullDuration;	
+	}
+
 	
 	/* Returns the number of bytes in a one second interval of audio file */
 	public static float getBytesPerSecond() {
@@ -80,10 +135,6 @@ public class FFTHandler {
 		int bitsPerSample = audioFMT.getSampleSizeInBits();
 		float bytesPerSecond = (channels * sampleRate * bitsPerSample)/8;
 		return bytesPerSecond;
-	}
-	
-	public static float getBytesPerTimeInterval() {
-		return getBytesPerSecond() * timeInterval;
 	}
 	
 	/* Converts individual byte chunks to double */
@@ -110,33 +161,21 @@ public class FFTHandler {
 		return samples;
 	}
 	
-	public static void calculateDataPoints() {
-		dataPoints = (int) ((int) Playback.getDuration()/timeInterval);
-	}
-	
-	public static double[][] getFFTData() {
-		fftData = new double[dataPoints][windowSize];
-		
-		for (int i = 0; i < dataPoints; i++) {
-			FFTInterval.calculateFFT(sampleData);
-			FFTInterval.getFFTData();
-			for (int j = 0; j < windowSize; j++) {
-				
-			}
-		}
-		
-		
-		return fftData;
+	public static void setAudioFile(File file) {
+		audioFile = file;
 	}
 	
 	public static void main(String[] args) {
 		audioFile = getAudioFile();
+		//audioFile = new File("/Users/Batman/Documents/GitHub/RAVES/src/testing/A River Flows in You.wav"); //Use for testing
 		createAudioStream();
 		getBytesPerTimeInterval();
+		calculateDataPoints();
 		splitAudio();
+		convertByteChunks();
+		getFFTData();
 		
-		
-		
+		//System.out.println("Finished");
 		
 	}
 
