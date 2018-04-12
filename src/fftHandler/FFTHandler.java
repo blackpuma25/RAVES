@@ -31,13 +31,8 @@ public class FFTHandler {
 	
 	/****************************************** Methods **************************************/
 	
-	/* Retrieves chosen audio file from File Chooser */
-	public static File getAudioFile() {
-		return FileChooser.getCurrrentFile();
-	}
-	
 	/* Create audio stream for data analysis */
-	public static void createAudioStream() {
+	public static void createAudioStream() { //Implement this to use audio stream from playback instead of creating a new one
 		try {
 			audioStream = AudioSystem.getAudioInputStream(audioFile);
 		} catch (UnsupportedAudioFileException e) {
@@ -57,8 +52,6 @@ public class FFTHandler {
 		
 		for(int i = 0; i < dataPoints; i++) {
 			byteBuffer = new byte[176401]; //allows for new reference for chunks list
-			
-			
 			try {
 				bytesRead = audioStream.read(byteBuffer, 0, length);
 			} catch (IOException e) {
@@ -66,9 +59,7 @@ public class FFTHandler {
 				e.printStackTrace();
 			}
 			chunks.add(byteBuffer);
-			//System.out.println("Bytes Read for t = " + i + ": " + bytesRead);
 		}
-		//System.out.println("");
 	}
 	
 	/* Returns the number of bytes in a single time interval */
@@ -107,7 +98,7 @@ public class FFTHandler {
 	
 	/* returns FFT data for given input file */
 	public static double[][] getData(File file) {
-		audioFile = file;
+		setAudioFile(file);
 		createAudioStream();
 		getBytesPerTimeInterval();
 		calculateDataPoints();
@@ -139,7 +130,6 @@ public class FFTHandler {
 		double fullDuration = audioFileLength / (frameSize * frameRate);
 		return fullDuration;	
 	}
-
 	
 	/* Returns the number of bytes in a one second interval of audio file */
 	public static float getBytesPerSecond() {
@@ -174,6 +164,12 @@ public class FFTHandler {
 		return samples;
 	}
 	
+	/* Retrieves chosen audio file from File Chooser */
+	public static File getAudioFile() {
+		return FileChooser.getCurrrentFile();
+	}
+	
+	/* Sets audio file to input file */
 	public static void setAudioFile(File file) {
 		audioFile = file;
 	}

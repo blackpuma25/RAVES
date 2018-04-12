@@ -5,12 +5,6 @@ import javax.swing.JPanel;
 
 
 public class VisualizationPanel extends JPanel {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 
 	public VisualizationPanel() {
 		setBackground(Color.WHITE);

@@ -17,37 +17,19 @@ import javax.sound.sampled.AudioFormat.Encoding;
 
 public class Playback {
 	
-	/*********************** Fields ********************************/
+	/************************************** Fields ******************************************/
 	private static File audioFile; //instance of audio file
 	private static AudioInputStream audioStream; //instance of audio to read data
 	private static AudioFormat audioFMT; //keeps audio formatting info (sample rate, number of channels, etc.)
-	private static Clip clip = null;
-	private static Long currentFrame;
-
-	private static boolean playing = false;
-	private static double position = 0;
+	
+	private static Clip clip = null; //a clip instance used for playback and position control
+	private static Long currentFrame; //tracks the current frame of clip
+	private static int newPosition; //stores a value of new clip position from scrubbing
+	private static double position = 0; //value that maintains position in seconds
+	private static boolean playing = false; //tracks if sound is playing
 	
 	
-	/************************ Methods 
-	 * @throws LineUnavailableException *******************************/
-	
-	public static void setAudioFile(File file){
-		audioFile = file;
-		Position p = new Position();
-		p.start();
-		//updatePosition();
-		//PlayerPanel.maintainPosition();
-		//createAudioStream();
-		//isSupportedAudioFile();
-	}
-	
-	public static AudioInputStream getAudioStream() {
-		return audioStream;
-	}
-	
-	public static AudioFormat getAudioFormat() {
-		return audioFMT;
-	}
+	/************************************** Methods *****************************************/
 	
 	/* Creates the audio stream and formating instance of audio file */
 	public static void createAudioStream() throws LineUnavailableException {
@@ -74,6 +56,7 @@ public class Playback {
 		}
 	}
 	
+	/* Plays audio file and updates duration field */
 	public static void play() {
 		clip.start();
 		playing = true;
@@ -81,39 +64,29 @@ public class Playback {
 		
 	}
 	
-	public static boolean isPlaying() {
-		return playing;
-	}
-	
+	/* Pauses audio file */
 	public static void pause() {
 		if (playing) {
 			clip.stop();
 			playing = false;
 		}
-		
 	}
 	
+	/* Maintains playing state of audio player */
+	public static boolean isPlaying() {
+		return playing;
+	}
+	
+	/* Maintains current position while playing */
 	public static void updatePosition() {
 		do {
 			setPosition(clip.getMicrosecondPosition());
 		} while (playing);
 	}
 	
-	public void skip(float time) {
-		
-	}
-	
-	public static boolean isScrubbed() {
-		int newPosition = PlayerPanel.getSlider().getValue();
-		if (newPosition != (int) getPosition())
-			return true;
-		return false;
-	}
-	
+	/* Jumps to different time section based of scrub bar value */
 	public static void scrub() {
-		int newPosition = PlayerPanel.getSlider().getValue();
-		System.out.println(newPosition);
-		//int jumpDistance = 0;
+		newPosition = PlayerPanel.getSlider().getValue();
 		if (newPosition != (int) getPosition()) {
 			try {
 				jump((long) newPosition);
@@ -129,10 +102,17 @@ public class Playback {
 			}
 		}
 	}
+	 /* Maintains state of user interaction with scrub bar */
+	public static boolean isScrubbed() {
+		int newPosition = PlayerPanel.getSlider().getValue();
+		if (newPosition != (int) getPosition())
+			return true;
+		return false;
+	}
 	
+	/* Jumps to specified section of audio file */
 	public static void jump(long c) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-		if (c > 0 && c < clip.getMicrosecondLength()) 
-		{
+		if (c > 0 && c < clip.getMicrosecondLength()) {
 			clip.stop();
 			clip.close();
 			resetAudioStream();
@@ -142,19 +122,11 @@ public class Playback {
 		}
 	}
 
-	// Method to reset audio stream
+	/* Resets audio stream for scrubbing */
 	public static void resetAudioStream() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		audioStream = AudioSystem.getAudioInputStream(audioFile);
 		clip.open(audioStream);
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
-	}
-	
-	public void setVolume(int x) {
-		
-	}
-	
-	public void giveFile(File f) {
-		
 	}
 	
 	/* Calculates the duration of the audio file in seconds */
@@ -165,7 +137,37 @@ public class Playback {
 		double fullDuration = audioFileLength / (frameSize * frameRate);
 		return fullDuration;	
 	}
-
+	
+	/**************************** Getters and Setters *******************************/
+	
+	
+	public static void setAudioFile(File file){
+		audioFile = file;
+		Position p = new Position(); //Creates thread for maintaining position
+		p.start();
+	}
+	
+	public static void giveFile(File f) {
+		
+	}
+	
+	public static void setVolume(int x) {
+		
+	}
+	
+	public static int getVolume(int x) {
+		return 0;
+	}
+	
+	
+	public static AudioInputStream getAudioStream() {
+		return audioStream;
+	}
+	
+	public static AudioFormat getAudioFormat() {
+		return audioFMT;
+	}
+	
 	public static double getPosition() {
 		return position;
 	}
