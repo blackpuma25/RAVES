@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import fftHandler.FFTHandler;
 import playback.Playback;
 
 public class PlayerPanel extends JPanel {
@@ -37,6 +38,7 @@ public class PlayerPanel extends JPanel {
 				/* Play/pause audio file */
 				
 				if (btnPlay.getText() == "Play") {
+					
 					InterfaceWindow.getVisualizer().play();
 					Playback.play();
 					btnPlay.setText("Pause");

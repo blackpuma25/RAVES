@@ -77,6 +77,9 @@ public class InterfaceWindow extends JFrame{
 	public static Visualizer getVisualizer() {
 		return visualizer;
 	}
+	public static File getFile() {
+		return null;
+	}
 	
 	public static void main(String[] args) {
 		new InterfaceWindow();

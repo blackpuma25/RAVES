@@ -1,5 +1,8 @@
 package visualizer;
 
+import fftHandler.FFTHandler;
+import fileSelection.FileChooser;
+
 public class BarVisualizer extends Visualizer{
 	private BarVisualization vis;
 	private boolean hasPlayed = false;
@@ -74,9 +77,16 @@ public class BarVisualizer extends Visualizer{
 
 	public void run() {
 		int i = 0;
-		
+		data = FFTHandler.getData(FileChooser.getCurrrentFile());
+		System.out.println(data.length);
+//		for(int k = 0; k < data.length; k++) {
+//			for(int j = 0; j < data[k].length; j++) {
+//				System.out.println(data[k][j]);
+//			}
+//		
+//		}
 		while(playing && data[i] != null) {
-			System.out.println(i);
+			//System.out.println(i);
 		vis.giveData(data[i]);
 		vis.repaint();
 		i++;
