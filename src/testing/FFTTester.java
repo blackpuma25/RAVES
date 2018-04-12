@@ -15,16 +15,16 @@ public class FFTTester {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void getData() throws Exception {
-		reference = FFTHandler.getData(audioFile);
+		reference = FFTHandler.getFFTData(audioFile);
 		double[][] reference2;
 		
 		FFTHandler.setAudioFile(audioFile);
-		FFTHandler.createAudioStream();
+		FFTHandler.initializeAudioData();
 		FFTHandler.getBytesPerTimeInterval();
 		FFTHandler.calculateDataPoints();
 		FFTHandler.splitAudio();
 		FFTHandler.convertByteChunks();
-		reference2 = FFTHandler.getFFTData();
+		reference2 = FFTHandler.calculateFFT();
 		
 		assertEquals(reference, reference2);
 		assertEquals(reference.length, reference2.length);

@@ -32,12 +32,14 @@ public class FFTHandler {
 	/****************************************** Methods **************************************/
 	
 	/* Create audio stream for data analysis */
-	public static void createAudioStream() { //Implement this to use audio stream from playback instead of creating a new one
+	public static void initializeAudioData() {
 		try {
 			audioStream = AudioSystem.getAudioInputStream(audioFile);
 		} catch (UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		audioFMT = audioStream.getFormat();
@@ -82,7 +84,7 @@ public class FFTHandler {
 	}
 	
 	/* Gets entire FFT data structure from audio file */
-	public static double[][] getFFTData() {
+	public static double[][] calculateFFT() {
 		fftData = new double[dataPoints][windowSize];
 		
 		for (int i = 0; i < dataPoints; i++) { //for each time interval
@@ -97,14 +99,14 @@ public class FFTHandler {
 	}
 	
 	/* returns FFT data for given input file */
-	public static double[][] getData(File file) {
+	public static double[][] getFFTData(File file) {
 		setAudioFile(file);
-		createAudioStream();
+		initializeAudioData();
 		getBytesPerTimeInterval();
 		calculateDataPoints();
 		splitAudio();
 		convertByteChunks();
-		return getFFTData();
+		return calculateFFT();
 		
 	}
 	

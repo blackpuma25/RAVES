@@ -15,9 +15,12 @@ import mainInterface.PlayerPanel;
 
 import javax.sound.sampled.AudioFormat.Encoding;
 
+import fileSelection.FileChooser;
+
 public class Playback {
 	
 	/************************************** Fields ******************************************/
+	
 	private static File audioFile; //instance of audio file
 	private static AudioInputStream audioStream; //instance of audio to read data
 	private static AudioFormat audioFMT; //keeps audio formatting info (sample rate, number of channels, etc.)
@@ -29,10 +32,11 @@ public class Playback {
 	private static boolean playing = false; //tracks if sound is playing
 	
 	
-	/************************************** Methods *****************************************/
+	/************************************** Methods 
+	 * @return *****************************************/
 	
 	/* Creates the audio stream and formating instance of audio file */
-	public static void createAudioStream() throws LineUnavailableException {
+	public static AudioInputStream createAudioStream() throws LineUnavailableException {
 		try {
 			audioStream = AudioSystem.getAudioInputStream(audioFile);
 			clip = AudioSystem.getClip();
@@ -43,6 +47,7 @@ public class Playback {
 			e.printStackTrace();
 		}
 		audioFMT = audioStream.getFormat();
+		return audioStream;
 	}
 	
 	/* Checks if file format is supported for this program */
@@ -140,42 +145,49 @@ public class Playback {
 	
 	/**************************** Getters and Setters *******************************/
 	
-	
+	/* Sets audio file to input file */
 	public static void setAudioFile(File file){
 		audioFile = file;
 		Position p = new Position(); //Creates thread for maintaining position
 		p.start();
 	}
 	
-	public static void giveFile(File f) {
-		
+	/* Retrieves chosen audio file from File Chooser */
+	public static File getAudioFile() {
+		return FileChooser.getCurrrentFile();
 	}
 	
+	/* Sets volume level */
 	public static void setVolume(int x) {
 		
 	}
 	
+	/* Retrieves volume level */
 	public static int getVolume(int x) {
 		return 0;
 	}
 	
-	
+	/* Returns audio stream */
 	public static AudioInputStream getAudioStream() {
 		return audioStream;
 	}
 	
+	/* Returns audio format */
 	public static AudioFormat getAudioFormat() {
 		return audioFMT;
 	}
 	
+	/* Returns stored value for position */
 	public static double getPosition() {
 		return position;
 	}
-
+	
+	/* Sets position to input value and converts to seconds */
 	public static void setPosition(double position) {
 		Playback.position = position * 0.000001;
 	}
 	
+	/* Returns reference for clip */
 	public static Clip getClip() {
 		return clip;
 	}

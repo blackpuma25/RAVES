@@ -77,7 +77,7 @@ public class BarVisualizer extends Visualizer{
 
 	public void run() {
 		int i = 0;
-		data = FFTHandler.getData(FileChooser.getCurrrentFile());
+		data = FFTHandler.getFFTData(FileChooser.getCurrrentFile());
 		System.out.println(data.length);
 //		for(int k = 0; k < data.length; k++) {
 //			for(int j = 0; j < data[k].length; j++) {

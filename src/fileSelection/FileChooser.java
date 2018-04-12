@@ -5,6 +5,7 @@ import java.io.File;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.JFileChooser;
 
+import fftHandler.FFTHandler;
 import mainInterface.FileMenu;
 import playback.Playback;
 //import javax.swing.filechooser.*;
@@ -16,7 +17,21 @@ public class FileChooser {
 	private static File currentFile = null;
 	private static boolean selecting = false;
 	
-	/********** Constructor *****************/
+	/************* Methods ******************/
+	
+	/* Maintains whether user is actively selecting file */
+	public static void setSelecting(boolean select) {
+		selecting = select;
+	}
+	
+	/* Updates fields after selecting a new file */
+	public static void updateFields() {
+		if (!selecting) {
+			FileMenu.updateFields();
+		}
+	}
+	
+	/*********** Getter Methods ***********/
 	
 	public static File getCurrrentFile() {
 		return currentFile;
@@ -30,18 +45,9 @@ public class FileChooser {
 		return currentFile.getPath();
 	}
 	
-	/* Maintains whether user is actively selecting file */
-	public static void setSelecting(boolean select) {
-		selecting = select;
-	}
+	/***************** Main Method *********************/
 	
-	public static void updateFields() {
-		if (!selecting) {
-			FileMenu.updateFields();
-		}
-	}
-	
-	
+	/* Opens file chooser and initializes playback */
 	public static void main(String[] args) {
 		final JFileChooser fc = new JFileChooser();
 		setSelecting(true);
@@ -50,6 +56,7 @@ public class FileChooser {
 		setSelecting(false);
 		updateFields();
 		Playback.setAudioFile(FileChooser.getCurrrentFile());
+		FFTHandler.setAudioFile(FileChooser.getCurrrentFile());
 		try {
 			Playback.createAudioStream();
 		} catch (LineUnavailableException e) {
@@ -57,7 +64,6 @@ public class FileChooser {
 			e.printStackTrace();
 		}
 		Playback.isSupportedAudioFile();
-		
 	}
 	
 	
