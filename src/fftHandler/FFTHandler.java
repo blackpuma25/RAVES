@@ -105,6 +105,18 @@ public class FFTHandler {
 		return fftData;
 	}
 	
+	/* returns FFT data for given input file */
+	public static double[][] getData(File file) {
+		audioFile = file;
+		createAudioStream();
+		getBytesPerTimeInterval();
+		calculateDataPoints();
+		splitAudio();
+		convertByteChunks();
+		return getFFTData();
+		
+	}
+	
 	/****************************** Helper Methods ***************************************/
 	
 	/* Returns window size (frequency resolution) */
@@ -168,15 +180,12 @@ public class FFTHandler {
 	
 	public static void main(String[] args) {
 		audioFile = getAudioFile();
-		//audioFile = new File("/Users/Batman/Documents/GitHub/RAVES/src/testing/A River Flows in You.wav"); //Use for testing
 		createAudioStream();
 		getBytesPerTimeInterval();
 		calculateDataPoints();
 		splitAudio();
 		convertByteChunks();
 		getFFTData();
-		
-		//System.out.println("Finished");
 		
 	}
 

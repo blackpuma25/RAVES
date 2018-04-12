@@ -8,9 +8,13 @@ import fftHandler.FFTHandler;
 
 public class FFTTester {
 	
+	private static double[][] reference;
 	private static File audioFile = new File("/Users/Batman/Documents/GitHub/RAVES/src/testing/A River Flows in You.wav"); //pathname may need to be edited for testing on personal machine;
 	
 	public static void main(String[] args) {
+		
+		reference = FFTHandler.getData(audioFile);
+		
 		FFTHandler.setAudioFile(audioFile);
 		FFTHandler.createAudioStream();
 		FFTHandler.getBytesPerTimeInterval();
@@ -18,6 +22,7 @@ public class FFTTester {
 		FFTHandler.splitAudio();
 		FFTHandler.convertByteChunks();
 		FFTHandler.getFFTData();
+		
 		
 		int length = FFTHandler.getFFTData().length;
 		System.out.println(length);
