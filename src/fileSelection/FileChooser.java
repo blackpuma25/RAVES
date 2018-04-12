@@ -14,6 +14,7 @@ public class FileChooser {
 	/************* Fields *******************/
 	
 	private static File currentFile = null;
+	private static boolean selecting = false;
 	
 	/********** Constructor *****************/
 	
@@ -29,14 +30,25 @@ public class FileChooser {
 		return currentFile.getPath();
 	}
 	
+	/* Maintains whether user is actively selecting file */
+	public static void setSelecting(boolean select) {
+		selecting = select;
+	}
+	
+	public static void updateFields() {
+		if (!selecting) {
+			FileMenu.updateFields();
+		}
+	}
+	
 	
 	public static void main(String[] args) {
 		final JFileChooser fc = new JFileChooser();
-		FileMenu.setSelecting(true);
+		setSelecting(true);
 		fc.showOpenDialog(fc);
 		currentFile = fc.getSelectedFile();
-		FileMenu.setSelecting(false);
-		FileMenu.updateFields();
+		setSelecting(false);
+		updateFields();
 		Playback.setAudioFile(FileChooser.getCurrrentFile());
 		try {
 			Playback.createAudioStream();
