@@ -73,7 +73,8 @@ public class FFTHandler {
 	
 	/* Returns the number of bytes in a single time interval */
 	public static float getBytesPerTimeInterval() {
-		return getBytesPerSecond() * timeInterval;
+		bytesPerInterval = getBytesPerSecond() * timeInterval;
+		return bytesPerInterval;
 	}
 	
 	/* Converts entire list of byte chunks from audio */
