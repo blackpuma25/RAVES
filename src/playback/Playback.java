@@ -7,6 +7,7 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -30,9 +31,8 @@ public class Playback {
 	private static int newPosition; //stores a value of new clip position from scrubbing
 	private static double position = 0; //value that maintains position in seconds
 	private static boolean playing = false; //tracks if sound is playing
-	
-	private static int minutes;
-	private static int seconds;
+	private static int volPosition = 0; //stores value of volume for slider
+	private static FloatControl gainControl; //Used for storing volume level in decibels
 	
 	
 	/************************************** Methods *****************************************/
@@ -49,6 +49,13 @@ public class Playback {
 			e.printStackTrace();
 		}
 		audioFMT = audioStream.getFormat();
+		
+		/* Volume control */
+		gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+		System.out.println("Max Volume: " + gainControl.getMaximum() + " dB");
+		System.out.println("Min Volume: " + gainControl.getMinimum() + " dB");
+		PlayerPanel.initializeVolSlider();
+		
 		return audioStream;
 	}
 	
@@ -93,7 +100,7 @@ public class Playback {
 	
 	/* Jumps to different time section based of scrub bar value */
 	public static void scrub() {
-		newPosition = PlayerPanel.getSlider().getValue();
+		newPosition = PlayerPanel.getscrubSlider().getValue();
 		if (newPosition != (int) getPosition()) {
 			try {
 				jump((long) newPosition);
@@ -111,10 +118,16 @@ public class Playback {
 	}
 	 /* Maintains state of user interaction with scrub bar */
 	public static boolean isScrubbed() {
-		int newPosition = PlayerPanel.getSlider().getValue();
+		int newPosition = PlayerPanel.getscrubSlider().getValue();
 		if (newPosition != (int) getPosition())
 			return true;
 		return false;
+	}
+	
+	public static void changeVolume() {
+		volPosition = PlayerPanel.getVolSlider().getValue();
+		if(volPosition != (int) getVolume())
+			setVolume(volPosition);
 	}
 	
 	/* Jumps to specified section of audio file */
@@ -145,6 +158,7 @@ public class Playback {
 		return fullDuration;	
 	}
 	
+	/* Converts seconds to minutes and seconds string */
 	public static String convertToMinSeconds (int seconds) {
 		int minutes = seconds / 60;
 		seconds = seconds % 60;
@@ -152,13 +166,13 @@ public class Playback {
 		return getDigits(minutes) + " : " + getDigits(seconds);
 	}
 	
+	/* Helper method for digit conversion */
 	public static String getDigits (int n) {
 		if (n == 0)
 			return "00";
 		if (n / 10 == 0)
 			return "0" + n;
 		return String.valueOf(n);
-		
 	}
 	
 	/**************************** Getters and Setters *******************************/
@@ -176,13 +190,13 @@ public class Playback {
 	}
 	
 	/* Sets volume level */
-	public static void setVolume(int x) {
-		
+	public static void setVolume(float decibels) {
+		gainControl.setValue(decibels);
 	}
 	
 	/* Retrieves volume level */
-	public static int getVolume(int x) {
-		return 0;
+	public static float getVolume() {
+		return gainControl.getValue();
 	}
 	
 	/* Returns audio stream */

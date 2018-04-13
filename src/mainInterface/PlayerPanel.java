@@ -20,8 +20,9 @@ public class PlayerPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private static JTextField textField;
 	private static JTextField textField_1;
-	private static JSlider slider;
-
+	private static JSlider scrubSlider;
+	private static JSlider volSlider;
+	
 	public PlayerPanel() {
 		setBackground(new Color(32, 178, 170));
 		setBounds(100, 400, 550, 103);
@@ -29,7 +30,7 @@ public class PlayerPanel extends JPanel {
 		
 		JButton btnPlay = new JButton("Play");
 		btnPlay.setText("Play");
-		btnPlay.setBounds(212, 57, 130, 29);
+		btnPlay.setBounds(188, 49, 130, 29);
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/* Play/pause audio file */
@@ -50,20 +51,20 @@ public class PlayerPanel extends JPanel {
 		});
 		add(btnPlay);
 		
-		slider = new JSlider(0, 100, 0);
-		slider.setBounds(117, 16, 321, 29);
-		slider.addChangeListener(new ChangeListener() {
+		scrubSlider = new JSlider(0, 100, 0);
+		scrubSlider.setBounds(92, 16, 321, 29);
+		scrubSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				if (Playback.isScrubbed())
 					Playback.scrub();
 			}
 		});
-		add(slider);
+		add(scrubSlider);
 		
 		textField = new JTextField();
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setBounds(44, 16, 73, 26);
+		textField.setBounds(19, 16, 73, 26);
 		textField.setText("Position");
 		add(textField);
 		textField.setColumns(10);
@@ -71,9 +72,20 @@ public class PlayerPanel extends JPanel {
 		textField_1 = new JTextField();
 		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_1.setColumns(10);
-		textField_1.setBounds(433, 16, 73, 26);
+		textField_1.setBounds(406, 16, 73, 26);
 		textField_1.setText("Duration");
 		add(textField_1);
+		
+		volSlider = new JSlider();
+		volSlider.setOrientation(SwingConstants.VERTICAL);
+		volSlider.setBounds(491, 0, 53, 103);
+		volSlider.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				Playback.changeVolume();
+			}
+		});
+		add(volSlider);
 	}
 	
 	public static JTextField getTextField() {
@@ -100,19 +112,33 @@ public class PlayerPanel extends JPanel {
 
 
 
-	public static JSlider getSlider() {
-		return slider;
+	public static JSlider getscrubSlider() {
+		return scrubSlider;
 	}
 
 
 
-	public static void setSlider(JSlider slider) {
-		PlayerPanel.slider = slider;
+	public static void setscrubSlider(JSlider slider) {
+		PlayerPanel.scrubSlider = slider;
 	}
+	
+	public static JSlider getVolSlider() {
+		return volSlider;
+	}
+
+	public static void setVolSlider(JSlider volSlider) {
+		PlayerPanel.volSlider = volSlider;
+	}
+
 	
 	public static void updateDuration() {
 		textField_1.setText(Playback.convertToMinSeconds((int) Playback.getDuration()));
-		slider.setMaximum((int) Playback.getDuration());
-		
+		scrubSlider.setMaximum((int) Playback.getDuration());
+	}
+	
+	public static void initializeVolSlider() {
+		volSlider.setMaximum(6);
+		volSlider.setMinimum(-20);
+		volSlider.setValue(0);
 	}
 }
