@@ -126,8 +126,7 @@ public class Playback {
 	
 	public static void changeVolume() {
 		volPosition = PlayerPanel.getVolSlider().getValue();
-		if(volPosition != (int) getVolume())
-			setVolume(volPosition);
+		setVolume(volPosition);
 	}
 	
 	/* Jumps to specified section of audio file */
