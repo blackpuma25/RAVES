@@ -17,7 +17,7 @@ public class FFTHandler {
 	/*********************************** Fields *******************************************/
 	
 	private static double[][] fftData; //The data used by the visualizer and analytics
-	private static float timeInterval = (float) .1; //initialized to tenth second intervals
+	private static float timeInterval = (float) .0333; //initialized to tenth second intervals
 	private static int windowSize = 64; //default resolution of window size
 	
 	private static File audioFile; //instance of audio file

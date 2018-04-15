@@ -45,7 +45,7 @@ public class BarVisualizer extends Visualizer{
 								{5, 5, 5, 5, 5, 5, 5, 5, 5, 5}
 																};
 	private boolean playing = false;
-	private int delay = 100;
+	private int delay = 33;
 	
 	//depreciated
 	public BarVisualizer(BarVisualization vis, double[][] data) {
