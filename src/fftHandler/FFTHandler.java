@@ -10,15 +10,15 @@ import java.util.List;
 import javax.sound.sampled.*;
 
 import fileSelection.FileChooser;
-import playback.Playback;
+import options.Options;
 
 public class FFTHandler {
 	
 	/*********************************** Fields *******************************************/
 	
 	private static double[][] fftData; //The data used by the visualizer and analytics
-	private static float timeInterval = (float) .0333; //initialized to tenth second intervals
-	private static int windowSize = 64; //default resolution of window size
+	private static float timeInterval; //Value for time resolution
+	private static int windowSize; //Value for frequency resolution
 	
 	private static File audioFile; //instance of audio file
 	private static AudioInputStream audioStream; //instance of audio to read data
@@ -26,10 +26,16 @@ public class FFTHandler {
 	private static float bytesPerInterval; //stores number of bytes for specified time interval
 	
 	private static List<byte[]> chunks; //stores the byte information for each time interval in audio file
-	private static List<double[]> sampleData; //stores byte chunks as double to calculate fft
+	private static List<double[]> sampleData; //stores byte chunks as double to calculate FFT
 	private static int dataPoints; //stores number of points to calculate FFT (determined by timeInterval)
 	
 	/****************************************** Methods **************************************/
+	
+	/* Obtains values defined by options */
+	public static void getOptions() {
+		timeInterval = Options.getTimeIntervals()[Options.getTimeRes()];
+		windowSize = Options.getWindowSizes()[Options.getFreqRes()];
+	}
 	
 	/* Create audio stream for data analysis */
 	public static void initializeAudioData() {
@@ -100,6 +106,7 @@ public class FFTHandler {
 	
 	/* returns FFT data for given input file */
 	public static double[][] getFFTData(File file) {
+		getOptions();
 		setAudioFile(file);
 		initializeAudioData();
 		getBytesPerTimeInterval();
@@ -175,5 +182,11 @@ public class FFTHandler {
 	public static void setAudioFile(File file) {
 		audioFile = file;
 	}
+
+	public static float getTimeInterval() {
+		return timeInterval;
+	}
+	
+	
 
 }
