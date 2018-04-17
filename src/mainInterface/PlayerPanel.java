@@ -22,13 +22,14 @@ public class PlayerPanel extends JPanel {
 	private static JTextField textField_1;
 	private static JSlider scrubSlider;
 	private static JSlider volSlider;
+	private static JButton btnPlay;
 	
 	public PlayerPanel() {
 		setBackground(new Color(32, 178, 170));
 		setBounds(100, 400, 550, 103);
 		setLayout(null);
 		
-		JButton btnPlay = new JButton("Play");
+		btnPlay = new JButton("Play");
 		btnPlay.setText("Play");
 		btnPlay.setBounds(188, 49, 130, 29);
 		btnPlay.addActionListener(new ActionListener() {
@@ -49,6 +50,7 @@ public class PlayerPanel extends JPanel {
 				
 			}
 		});
+		btnPlay.setEnabled(false);
 		add(btnPlay);
 		
 		scrubSlider = new JSlider(0, 100, 0);
@@ -86,6 +88,14 @@ public class PlayerPanel extends JPanel {
 			}
 		});
 		add(volSlider);
+	}
+	
+	public static void enablePlayButton() {
+		btnPlay.setEnabled(true);
+	}
+	
+	public static void disablePlayButton() {
+		btnPlay.setEnabled(false);
 	}
 	
 	public static JTextField getTextField() {

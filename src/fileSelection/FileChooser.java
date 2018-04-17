@@ -7,6 +7,7 @@ import javax.swing.JFileChooser;
 
 import fftHandler.FFTHandler;
 import mainInterface.FileMenu;
+import mainInterface.PlayerPanel;
 import playback.Playback;
 //import javax.swing.filechooser.*;
 
@@ -64,6 +65,7 @@ public class FileChooser {
 			e.printStackTrace();
 		}
 		Playback.isSupportedAudioFile();
+		PlayerPanel.enablePlayButton();
 	}
 	
 	
