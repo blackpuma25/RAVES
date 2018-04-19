@@ -11,7 +11,7 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-
+import mainInterface.InterfaceWindow;
 import mainInterface.PlayerPanel;
 
 import javax.sound.sampled.AudioFormat.Encoding;
@@ -22,13 +22,13 @@ public class Playback {
 	
 	/************************************** Fields ******************************************/
 	
-	private static File audioFile; //instance of audio file
-	private static AudioInputStream audioStream; //instance of audio to read data
-	private static AudioFormat audioFMT; //keeps audio formatting info (sample rate, number of channels, etc.)
+	private static File audioFile = null; //instance of audio file
+	private static AudioInputStream audioStream = null; //instance of audio to read data
+	private static AudioFormat audioFMT = null; //keeps audio formatting info (sample rate, number of channels, etc.)
 	
 	private static Clip clip = null; //a clip instance used for playback and position control
-	private static Long currentFrame; //tracks the current frame of clip
-	private static int newPosition; //stores a value of new clip position from scrubbing
+	private static Long currentFrame = (long) 0; //tracks the current frame of clip
+	private static int newPosition = 0; //stores a value of new clip position from scrubbing
 	private static double position = 0; //value that maintains position in seconds
 	private static boolean playing = false; //tracks if sound is playing
 	private static int volPosition = 0; //stores value of volume for slider
@@ -70,10 +70,36 @@ public class Playback {
 		}
 	}
 	
+	/* Closes and resets audio fields */
+	public static void closeSession() {
+		if (playing)
+			pause();
+//		try {
+//			resetAudioStream();
+//		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+		try {
+			audioStream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		gainControl = null;
+		audioFMT = null;
+		clip = null;
+		audioFile = null;
+		audioStream = null;
+		setCurrentFrame((long) 0);
+	}
+	
 	/* Plays audio file and updates duration field */
 	public static void play() {
 		clip.start();
 		playing = true;
+		InterfaceWindow.getVisualizer().play();
+		PlayerPanel.getBtnPlay().setText("Pause");
 		PlayerPanel.updateDuration();
 		
 	}
@@ -83,6 +109,8 @@ public class Playback {
 		if (playing) {
 			clip.stop();
 			playing = false;
+			InterfaceWindow.getVisualizer().pause();
+			PlayerPanel.getBtnPlay().setText("Play");
 		}
 	}
 	
@@ -97,6 +125,12 @@ public class Playback {
 			setPosition(clip.getMicrosecondPosition());
 		} while (playing);
 	}
+	
+	public static void resetPosition() {
+		setPosition(0);
+		PlayerPanel.getscrubSlider().setValue(0);
+	}
+	
 	
 	/* Jumps to different time section based of scrub bar value */
 	public static void scrub() {
@@ -116,6 +150,7 @@ public class Playback {
 			}
 		}
 	}
+	
 	 /* Maintains state of user interaction with scrub bar */
 	public static boolean isScrubbed() {
 		int newPosition = PlayerPanel.getscrubSlider().getValue();
@@ -135,7 +170,7 @@ public class Playback {
 			clip.stop();
 			clip.close();
 			resetAudioStream();
-			currentFrame = c;
+			setCurrentFrame(c);
 			clip.setMicrosecondPosition(c * 1000000);
 			clip.start();
 		}
@@ -221,6 +256,14 @@ public class Playback {
 	/* Returns reference for clip */
 	public static Clip getClip() {
 		return clip;
+	}
+
+	public static Long getCurrentFrame() {
+		return currentFrame;
+	}
+
+	public static void setCurrentFrame(Long currentFrame) {
+		Playback.currentFrame = currentFrame;
 	}
 
 }

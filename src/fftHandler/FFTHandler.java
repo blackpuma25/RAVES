@@ -16,18 +16,18 @@ public class FFTHandler {
 	
 	/*********************************** Fields *******************************************/
 	
-	private static double[][] fftData; //The data used by the visualizer and analytics
-	private static float timeInterval; //Value for time resolution
-	private static int windowSize; //Value for frequency resolution
+	private static double[][] fftData = null; //The data used by the visualizer and analytics
+	private static float timeInterval = 0; //Value for time resolution
+	private static int windowSize = 0; //Value for frequency resolution
 	
-	private static File audioFile; //instance of audio file
-	private static AudioInputStream audioStream; //instance of audio to read data
-	private static AudioFormat audioFMT; //keeps audio formatting info (sample rate, number of channels, etc.)
-	private static float bytesPerInterval; //stores number of bytes for specified time interval
+	private static File audioFile = null; //instance of audio file
+	private static AudioInputStream audioStream = null; //instance of audio to read data
+	private static AudioFormat audioFMT = null; //keeps audio formatting info (sample rate, number of channels, etc.)
+	private static float bytesPerInterval = 0; //stores number of bytes for specified time interval
 	
-	private static List<byte[]> chunks; //stores the byte information for each time interval in audio file
-	private static List<double[]> sampleData; //stores byte chunks as double to calculate FFT
-	private static int dataPoints; //stores number of points to calculate FFT (determined by timeInterval)
+	private static List<byte[]> chunks = null; //stores the byte information for each time interval in audio file
+	private static List<double[]> sampleData = null; //stores byte chunks as double to calculate FFT
+	private static int dataPoints = 0; //stores number of points to calculate FFT (determined by timeInterval)
 	
 	/****************************************** Methods **************************************/
 	
@@ -115,6 +115,26 @@ public class FFTHandler {
 		convertByteChunks();
 		return calculateFFT();
 		
+	}
+	
+	public static void resetData() {
+		fftData = null;
+		timeInterval = 0;
+		windowSize = 0;
+		
+		audioFile = null;
+		try {
+			audioStream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		audioFMT = null;
+		bytesPerInterval = 0;
+		
+		chunks = null;
+		sampleData = null;
+		dataPoints = 0;
 	}
 	
 	/****************************** Helper Methods ***************************************/

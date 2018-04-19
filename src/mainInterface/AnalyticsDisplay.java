@@ -17,8 +17,9 @@ public class AnalyticsDisplay extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField txtBpm;
-	private JTextField txtKey;
+	private static JTextField txtBpm;
+	private static JTextField txtKey;
+	private static JButton btnPerformAnalytics;
 	
 	public AnalyticsDisplay() {
 		setBackground(new Color(0, 128, 0));
@@ -37,7 +38,7 @@ public class AnalyticsDisplay extends JPanel{
 		add(txtKey);
 		txtKey.setColumns(10);
 		
-		JButton btnPerformAnalytics = new JButton("Perform Analytics");
+		btnPerformAnalytics = new JButton("Perform Analytics");
 		btnPerformAnalytics.setBounds(155, 26, 182, 29);
 		btnPerformAnalytics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -46,6 +47,15 @@ public class AnalyticsDisplay extends JPanel{
 				txtKey.setText("Calculating Key...");
 			}
 		});
+		btnPerformAnalytics.setEnabled(false);
 		add(btnPerformAnalytics);
+	}
+	
+	public static void enableAnalytics() {
+		btnPerformAnalytics.setEnabled(true);
+	}
+	
+	public static void disableAnalytics() {
+		btnPerformAnalytics.setEnabled(false);
 	}
 }

@@ -35,17 +35,11 @@ public class PlayerPanel extends JPanel {
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/* Play/pause audio file */
-				
 				if (btnPlay.getText() == "Play") {
-					
-					InterfaceWindow.getVisualizer().play();
 					Playback.play();
-					btnPlay.setText("Pause");
 				}
 				else {
-					InterfaceWindow.getVisualizer().pause();
 					Playback.pause();
-					btnPlay.setText("Play");
 				}
 				
 			}
@@ -150,5 +144,13 @@ public class PlayerPanel extends JPanel {
 		volSlider.setMaximum(6);
 		volSlider.setMinimum(-20);
 		volSlider.setValue(0);
+	}
+
+	public static JButton getBtnPlay() {
+		return btnPlay;
+	}
+
+	public static void setBtnPlay(JButton btnPlay) {
+		PlayerPanel.btnPlay = btnPlay;
 	}
 }
