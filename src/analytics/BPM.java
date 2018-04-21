@@ -7,6 +7,12 @@ public class BPM extends Thread {
 	private static float timeRes;
 	private static int windowRes;
 	
+	/* The length of these arrays are determined by number of frames in file */
+	private static double[] peakTimes; //stores times at which peak amplitudes occur
+	private static double[] peakAmplitudes; //stores values of peak amplitudes
+	private static double[] averageAmplitude; //stores average amplitude for the time period
+	
+	
 	/* Algorithm to calculate BPM */
 	public static int getBPM(double[][] fftData) {
 		
@@ -16,9 +22,12 @@ public class BPM extends Thread {
 		timeRes = FFTHandler.getTimeInterval();
 		windowRes = FFTHandler.getWindowSize();
 		
-		/* Determine number of bands to use */
+		/* Determine number of frequency bands to use */
+		// Window size/2
+		
 		
 		/* Determine number of time intervals in a frame */
+		// Length of frame/time interval
 		
 		/* For each band and each frame, compute time at which peak amplitude occurs */
 		
@@ -33,9 +42,6 @@ public class BPM extends Thread {
 	
 	/************ Helper Methods ********************/
 	
-	public static void getWindowResolution() {
-		
-	}
 	
 	@Override
 	public void run() {

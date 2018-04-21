@@ -97,7 +97,7 @@ public class FFTHandler {
 			FFTInterval.calculateFFT(sampleData.get(i));
 			FFTInterval.getFFTData();
 			for (int j = 0; j < windowSize; j++) { //for each frequency
-				fftData[i][j] = FFTInterval.getFFTData()[j];
+				fftData[i][j] = Math.abs(FFTInterval.getFFTData()[j]);
 				
 			}
 		}

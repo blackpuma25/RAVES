@@ -74,12 +74,6 @@ public class Playback {
 	public static void closeSession() {
 		if (playing)
 			pause();
-//		try {
-//			resetAudioStream();
-//		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
 		try {
 			audioStream.close();
 		} catch (IOException e) {
@@ -99,7 +93,8 @@ public class Playback {
 		clip.start();
 		playing = true;
 		InterfaceWindow.getVisualizer().play();
-		PlayerPanel.getBtnPlay().setText("Pause");
+		if (playing)
+			PlayerPanel.getBtnPlay().setText("Pause");
 		PlayerPanel.updateDuration();
 		
 	}
@@ -110,7 +105,8 @@ public class Playback {
 			clip.stop();
 			playing = false;
 			InterfaceWindow.getVisualizer().pause();
-			PlayerPanel.getBtnPlay().setText("Play");
+			if (!playing)
+				PlayerPanel.getBtnPlay().setText("Play");
 		}
 	}
 	
@@ -126,6 +122,7 @@ public class Playback {
 		} while (playing);
 	}
 	
+	/* Sets position to beginning of scrub bar */
 	public static void resetPosition() {
 		setPosition(0);
 		PlayerPanel.getscrubSlider().setValue(0);
