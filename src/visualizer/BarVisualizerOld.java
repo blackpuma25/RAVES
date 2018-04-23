@@ -45,7 +45,7 @@ public class BarVisualizerOld extends Visualizer {
 	}
 
 	@Override
-	public void giveData() {
+	public void giveData(double[][] data) {
 		// TODO Auto-generated method stub
 
 	}

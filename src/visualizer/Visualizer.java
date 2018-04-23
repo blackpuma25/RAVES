@@ -10,6 +10,10 @@ public abstract class Visualizer extends Thread {
 	
 	public abstract void skip(int t);
 	
-	public abstract void giveData();
+
+	public void giveData(double[][] data) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

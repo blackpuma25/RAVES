@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import fftHandler.FFTHandler;
 import fileSelection.FileChooser;
 
 public class FileMenu extends JPanel{
@@ -62,8 +63,11 @@ public class FileMenu extends JPanel{
 	/****************** Methods *********************/
 	
 	public static void updateFields() {
+		PlayerPanel.disablePlayButton();
 		txtFileName.setText("File Name: " + FileChooser.getFileName());
 		txtFilePath.setText("File Path: " + FileChooser.getFilePath());
+		InterfaceWindow.getVisualizer().giveData(FFTHandler.getFFTData(FileChooser.getCurrrentFile()));
+		PlayerPanel.enablePlayButton();
 	}
 	
 }
