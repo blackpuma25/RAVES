@@ -48,9 +48,9 @@ public class BarVisualization extends Visualization{
 		if(running) {
 			g.setColor(Color.red);
 		
-		for (int i = 0; i< input.length; i++) {
+		for (int i = 1; i< (input.length + 1) / 2; i++) {
 		
-			g.fillRect(10 + (barwidth + gap) * i, (int)(height - (input[i] + 20) * 5), barwidth, (int)((input[i] + 20) * 5));
+			g.fillRect(10 + (barwidth + gap) * i, (int)(height - (input[i]) * 5000), barwidth, (int)((input[i]) * 5000));
 		}
 		}
 		

@@ -86,7 +86,8 @@ public class BarVisualizer extends Visualizer{
 //		
 //		}
 		while(playing && data[i] != null) {
-			//System.out.println(i);
+			//System.out.println(data[i]);
+		
 		vis.giveData(data[i]);
 		vis.repaint();
 		i++;

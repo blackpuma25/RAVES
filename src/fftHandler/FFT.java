@@ -34,7 +34,7 @@ public class FFT {
 
   double[] window;
   
-  public FFT(int n) {
+  public FFT(int n) { ////////****************** Important!!! n is FFT length, not window size!!!! ***************************////
     this.n = n;
     this.m = (int)(Math.log(n) / Math.log(2));
 
@@ -199,13 +199,23 @@ public class FFT {
     System.out.println("Averaged " + (time/iter) + "ms per iteration");
   }
 
-  protected static double[] beforeAfter(FFT fft, double[] re, double[] im) {
-//    System.out.println("Before: ");
-//    printReIm(re, im);
+  protected static double[] beforeAfter(FFT fft, double[] re, double[] im) { //modified to return the magnitude
+    System.out.println("Before: ");
+    printReIm(re, im);
     fft.fft(re, im);
-//    System.out.println("After: ");
-//    printReIm(re, im);
-    return re;
+    System.out.println("After: ");
+    printReIm(re, im);
+    double[] mag = new double[re.length];
+    mag = getMagnitude(re, im);
+    return mag;
+  }
+  
+  protected static double[] getMagnitude(double[] real, double[] imag) {
+	  double[] mag = new double[real.length];
+	  for(int i = 0; i < real.length; i++) {
+		  mag[i] = Math.sqrt(real[i] * real[i] + imag[i] * imag[i]);
+	  }
+	  return mag;
   }
 
   protected static void printReIm(double[] re, double[] im) {
@@ -213,9 +223,9 @@ public class FFT {
     for(int i=0; i<re.length; i++)
       System.out.print(((int)(re[i]*1000)/1000.0) + " ");
 
-//    System.out.print("]\nIm: [");
-//    for(int i=0; i<im.length; i++)
-//      System.out.print(((int)(im[i]*1000)/1000.0) + " ");
+    System.out.print("]\nIm: [");
+    for(int i=0; i<im.length; i++)
+      System.out.print(((int)(im[i]*1000)/1000.0) + " ");
 //
     System.out.println("]");
   }

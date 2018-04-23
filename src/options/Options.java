@@ -6,7 +6,7 @@ public class Options {
 	
 	/* Option values initialized to default values */
 	private static int visStyle = 0;
-	private static int timeRes = 2;
+	private static int timeRes = 0;
 	private static int freqRes = 1;
 	private static boolean visualizerOn = true;
 	
@@ -18,7 +18,7 @@ public class Options {
 			{(float) .0333, (float) 0.05, (float) .0666, (float) 0.75, 
 					(float) 0.1, (float) 0.3, (float) 0.5}; //we can change these values as needed
 	private static int[] windowSizes = new int[] 
-			{32, 64, 128, 256, 512, 1024};
+			{32, 64, 128, 256, 512, 1024, 32768};
 	
 	/****************** Methods *********************/
 	

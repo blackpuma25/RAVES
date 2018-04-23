@@ -6,6 +6,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.swing.JFileChooser;
 
 import fftHandler.FFTHandler;
+import mainInterface.AnalyticsDisplay;
 import mainInterface.FileMenu;
 import mainInterface.PlayerPanel;
 import playback.Playback;
@@ -71,6 +72,7 @@ public class FileChooser {
 			}
 			Playback.isSupportedAudioFile();
 			PlayerPanel.enablePlayButton();
+			AnalyticsDisplay.enableAnalytics();
 			FileManager.setFileLoaded(true);
 		}
 	}

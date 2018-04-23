@@ -95,12 +95,14 @@ public class FFTHandler {
 		
 		for (int i = 0; i < dataPoints; i++) { //for each time interval
 			FFTInterval.calculateFFT(sampleData.get(i));
-			FFTInterval.getFFTData();
+			//FFTInterval.getFFTData();
 			for (int j = 0; j < windowSize; j++) { //for each frequency
-				fftData[i][j] = Math.abs(FFTInterval.getFFTData()[j]);
-				
+				//fftData[i][j] = FFTInterval.getFFTData()[j];
+				fftData[i][j] = sampleData.get(i)[j];
 			}
+		
 		}
+		
 		return fftData;
 	}
 	
@@ -183,6 +185,8 @@ public class FFTHandler {
 	                     break;
 	            case 16: samples[i] = (bb.getShort()/max);
 	                     break;
+	            case 24: samples[i] = (bb.getDouble()/max);
+	            		 break;
 	            case 32: samples[i] = (bb.getInt()/max);
 	                     break;
 	            case 64: samples[i] = (bb.getLong()/max);

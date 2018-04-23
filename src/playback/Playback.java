@@ -51,10 +51,10 @@ public class Playback {
 		audioFMT = audioStream.getFormat();
 		
 		/* Volume control */
-		gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-		System.out.println("Max Volume: " + gainControl.getMaximum() + " dB");
-		System.out.println("Min Volume: " + gainControl.getMinimum() + " dB");
-		PlayerPanel.initializeVolSlider();
+		//gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+		//System.out.println("Max Volume: " + gainControl.getMaximum() + " dB");
+		//System.out.println("Min Volume: " + gainControl.getMinimum() + " dB");
+		//PlayerPanel.initializeVolSlider();
 		
 		return audioStream;
 	}
