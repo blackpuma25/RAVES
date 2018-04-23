@@ -52,8 +52,17 @@ public class PlayerPanel extends JPanel {
 		scrubSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				if (Playback.isScrubbed())
+//				System.out.println(scrubSlider.getValue());
+//				JSlider source = (JSlider)e.getSource();
+//				if(source.getValueIsAdjusting()) {
+//				
+//				}
+				if (Playback.isScrubbed()) {
 					Playback.scrub();
+					
+					InterfaceWindow.getVisualizer().skip(0);
+				}
+				
 			}
 		});
 		add(scrubSlider);

@@ -132,9 +132,12 @@ public class Playback {
 	/* Jumps to different time section based of scrub bar value */
 	public static void scrub() {
 		newPosition = PlayerPanel.getscrubSlider().getValue();
+		//System.out.println(PlayerPanel.getscrubSlider().getValue());
+		InterfaceWindow.getVisualizer().skip((PlayerPanel.getscrubSlider().getValue()));
 		if (newPosition != (int) getPosition()) {
 			try {
 				jump((long) newPosition);
+				
 			} catch (UnsupportedAudioFileException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

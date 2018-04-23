@@ -46,6 +46,7 @@ public class BarVisualizer extends Visualizer{
 																};
 	private boolean playing = false;
 	private int delay = 33;
+	private int i=0;
 	
 	//depreciated
 	public BarVisualizer(BarVisualization vis, double[][] data) {
@@ -76,7 +77,7 @@ public class BarVisualizer extends Visualizer{
 	}
 
 	public void run() {
-		int i = 0;
+		i = 0;
 		
 		System.out.println(data.length);
 //		for(int k = 0; k < data.length; k++) {
@@ -113,7 +114,7 @@ public class BarVisualizer extends Visualizer{
 
 	@Override
 	public void skip(int t) {
-		// TODO Auto-generated method stub
+		i = data.length * (t/281);
 		
 	}
 
