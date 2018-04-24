@@ -13,8 +13,9 @@ public class BarVisualization extends Visualization{
 	int y = 50;
 	int width = 1000;
 	int height = 450;
-	int barwidth = 10;
-	int gap = 5;
+	int barwidth = 4;
+	int gap = 1;
+	double[] smooth;
 	private double input[];
 	public Thread thread;
 	private boolean running = false;
@@ -24,12 +25,8 @@ public class BarVisualization extends Visualization{
 		//getContentPane().add(vPanel);
 		setLayout(null);
 		
-		txtVisualiztionPanel = new JTextField();
-		txtVisualiztionPanel.setBackground(Color.LIGHT_GRAY);
-		txtVisualiztionPanel.setText("Visualiztion Panel");
-		txtVisualiztionPanel.setBounds(430, 217, 130, 26);
-		add(txtVisualiztionPanel);
-		txtVisualiztionPanel.setColumns(10);
+
+
 //		thread = new BarVisualizerThread(this, null);
 //		thread.start();
 		//repaint();
@@ -37,10 +34,14 @@ public class BarVisualization extends Visualization{
 	
 	public void giveData(double[] i) {
 	input = i;
+	
 	}
 	
 	public void start() {
 		running = true;
+	}
+	public void giveSize(int size) {
+		smooth = new double[size];
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -49,8 +50,11 @@ public class BarVisualization extends Visualization{
 			g.setColor(Color.red);
 		
 		for (int i = 1; i< (input.length + 1) / 2; i++) {
-		
-			g.fillRect(10 + (barwidth + gap) * i, (int)(height - (input[i]) * 5000), barwidth, (int)((input[i]) * 5000));
+			if(input[i] > smooth[i]) {
+				smooth[i] = input[i];
+			}
+			g.fillRect(10 + (barwidth + gap) * i, (int)(height - (smooth[i]) * 5000), barwidth, (int)((smooth[i]) * 5000));
+			smooth[i] = smooth[i] * .85;
 		}
 		}
 		

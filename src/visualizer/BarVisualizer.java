@@ -45,7 +45,7 @@ public class BarVisualizer extends Visualizer{
 								{5, 5, 5, 5, 5, 5, 5, 5, 5, 5}
 																};
 	private boolean playing = false;
-	private int delay = 33;
+	private int delay = 45;
 	private int i=0;
 	
 	//depreciated
@@ -93,7 +93,7 @@ public class BarVisualizer extends Visualizer{
 		vis.repaint();
 		i++;
 		if(i>=data.length) {
-			i = 0;
+			this.stop();
 		}
 			try {
 				Thread.sleep(delay);
@@ -121,7 +121,7 @@ public class BarVisualizer extends Visualizer{
 	@Override
 	public void giveData(double[][] data) {
 		this.data = data;
-		
+		vis.giveSize(data[0].length);
 	}
 	
 	

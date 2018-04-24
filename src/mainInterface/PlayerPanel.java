@@ -60,7 +60,7 @@ public class PlayerPanel extends JPanel {
 				if (Playback.isScrubbed()) {
 					Playback.scrub();
 					
-					InterfaceWindow.getVisualizer().skip(0);
+					//InterfaceWindow.getVisualizer().skip(0);
 				}
 				
 			}
