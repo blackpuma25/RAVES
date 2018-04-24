@@ -6,8 +6,8 @@ public class Options {
 	
 	/* Option values initialized to default values */
 	private static int visStyle = 0;
-	private static int timeRes = 0;
-	private static int freqRes = 1;
+	private static int timeRes = 4;
+	private static int freqRes = 2;
 	private static boolean visualizerOn = true;
 	
 	/* Option assignment bindings */
