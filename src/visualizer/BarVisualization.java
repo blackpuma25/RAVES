@@ -13,8 +13,8 @@ public class BarVisualization extends Visualization{
 	int y = 50;
 	int width = 1000;
 	int height = 450;
-	int barwidth = 4;
-	int gap = 1;
+	int barwidth = 75;
+	int gap = 5;
 	double[] smooth;
 	private double input[];
 	public Thread thread;

@@ -115,8 +115,9 @@ public class FFTHandler {
 		calculateDataPoints();
 		splitAudio();
 		convertByteChunks();
-		return calculateFFT();
-		
+		FFTScaler.setAmplitudes(calculateFFT());
+		//return calculateFFT();
+		return FFTScaler.scaleData();
 	}
 	
 	public static void resetData() {
@@ -213,6 +214,10 @@ public class FFTHandler {
 
 	public static AudioFormat getAudioFMT() {
 		return audioFMT;
+	}
+
+	public static int getDataPoints() {
+		return dataPoints;
 	}
 	
 	

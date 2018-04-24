@@ -7,7 +7,7 @@ public class Options {
 	/* Option values initialized to default values */
 	private static int visStyle = 0;
 	private static int timeRes = 1;
-	private static int freqRes = 5; // may need to change this to number of frequency bands
+	private static int freqRes = 1; // may need to change this to number of frequency bands
 	private static boolean visualizerOn = true;
 	
 	/* Option assignment bindings */
