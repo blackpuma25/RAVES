@@ -141,7 +141,7 @@ public class FFTHandler {
 	
 	/****************************** Helper Methods ***************************************/
 	
-	/* Returns window size (frequency resolution) */
+	/* Returns window size */
 	public static int getWindowSize() {
 		return windowSize;
 	}
@@ -209,6 +209,10 @@ public class FFTHandler {
 
 	public static float getTimeInterval() {
 		return timeInterval;
+	}
+
+	public static AudioFormat getAudioFMT() {
+		return audioFMT;
 	}
 	
 	
