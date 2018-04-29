@@ -17,7 +17,7 @@ public class FFTHandler {
 	/*********************************** Fields *******************************************/
 	
 	private static double[][] fftData = null; //The data used by the visualizer and analytics
-	private static float timeInterval = 0; //Value for time resolution
+	private static float timeInterval = 1; //Value for time resolution
 	private static int windowSize = 0; //Value for frequency resolution
 	
 	private static File audioFile = null; //instance of audio file
