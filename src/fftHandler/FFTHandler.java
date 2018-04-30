@@ -206,11 +206,13 @@ public class FFTHandler {
 	public static void setAudioFile(File file) {
 		audioFile = file;
 	}
-
+	
+	/* Returns duration of time interval as float */
 	public static float getTimeInterval() {
 		return timeInterval;
 	}
 
+	/* Returns the audio format created from audio stream */
 	public static AudioFormat getAudioFMT() {
 		return audioFMT;
 	}
