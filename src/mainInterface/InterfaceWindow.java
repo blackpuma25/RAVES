@@ -66,6 +66,8 @@ public class InterfaceWindow extends JFrame{
 		repaint();
 	}
 	
+
+	
 	public static Visualizer getVisualizer() {
 		return visualizer;
 	}
