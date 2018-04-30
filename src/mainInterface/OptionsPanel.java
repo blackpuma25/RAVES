@@ -6,14 +6,14 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class OptionsMenu extends JPanel {
+public class OptionsPanel extends JPanel {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public OptionsMenu() {
+	public OptionsPanel() {
 		setBackground(new Color(112, 128, 144));
 		setBounds(0, 400, 225, 103);
 		setLayout(null);

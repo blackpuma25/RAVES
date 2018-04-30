@@ -13,10 +13,12 @@ public class InterfaceWindow extends JFrame{
 	private static final long serialVersionUID = 1L;
 
 	/* Objects for each component interface */
+	private static InterfaceWindow interfaceWindow;
+	
 	private Visualization vPanel;
 	private PlayerPanel pPanel;
 	private FileMenu fPanel;
-	private OptionsMenu oPanel;
+	private OptionsPanel oPanel;
 	private AnalyticsDisplay aPanel;
 	private TutorialPanel tPanel;
 	private static Visualizer visualizer;
@@ -52,7 +54,7 @@ public class InterfaceWindow extends JFrame{
 		aPanel.setSize(500, 126);
 		aPanel.setLocation(500, 0);
 		getContentPane().add(aPanel);
-		oPanel = new OptionsMenu();
+		oPanel = new OptionsPanel();
 		oPanel.setSize(225, 103);
 		oPanel.setLocation(0, 575);
 		getContentPane().add(oPanel);
@@ -72,8 +74,16 @@ public class InterfaceWindow extends JFrame{
 		return visualizer;
 	}
 	
+	public static void disableMainWindow() {
+		interfaceWindow.setEnabled(false);
+	}
+	
+	public static void enableMainWindow() {
+		interfaceWindow.setEnabled(true);
+	}
+	
 	public static void main(String[] args) {
-		new InterfaceWindow();
+		interfaceWindow = new InterfaceWindow();
 		
 	}
 }

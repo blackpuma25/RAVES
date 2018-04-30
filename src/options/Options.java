@@ -5,19 +5,15 @@ public class Options {
 	/****************** Fields ***********************/
 	
 	/* Option values initialized to default values */
-	private static int visStyle = 0;
 	private static int timeRes = 1;
 	private static int freqRes = 5; // may need to change this to number of frequency bands
 	private static boolean visualizerOn = true;
 	
 	/* Option assignment bindings */
-	private static String[] styles = new String[] 
-			{"Bar"};
-
-	private static float[] timeIntervals = new float[] 
+	private static float[] timeIntervals = new float[] //time resolution 
 			{(float) .0333, (float) 0.05, (float) .0666, (float) 0.75, 
 					(float) 0.1, (float) 0.3, (float) 0.5}; //we can change these values as needed
-	private static int[] windowSizes = new int[] 
+	private static int[] windowSizes = new int[] //frequency resolution
 			{32, 64, 128, 256, 512, 1024, 32768};
 	
 	/****************** Methods *********************/
@@ -29,10 +25,6 @@ public class Options {
 	
 	/******************** Getters and Setters for each field ***********************/
 
-	public static String[] getStyles() {
-		return styles;
-	}
-
 	public static float[] getTimeIntervals() {
 		return timeIntervals;
 	}
@@ -41,14 +33,6 @@ public class Options {
 		return windowSizes;
 	}
 	
-	public static int getVisStyle() {
-		return visStyle;
-	}
-
-	public static void setVisStyle(int visStyle) {
-		Options.visStyle = visStyle;
-	}
-
 	public static int getTimeRes() {
 		return timeRes;
 	}
