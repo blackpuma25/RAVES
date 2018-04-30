@@ -18,16 +18,16 @@ class PlaybackTester {
 	
 	@Test
 	public void createAudioStream() throws Exception {		
-		
-		/* null test */
-		Playback.setAudioFile(nullFile);
-		String msg = null;
-		try {
-			Playback.createAudioStream();
-		} catch (NullPointerException e) {
-			msg = "File Not Found";
-		}
-		assertEquals("File Not Found", msg);
+//		
+//		/* null test */
+//		Playback.setAudioFile(nullFile);
+//		String msg = null;
+//		try {
+//			Playback.createAudioStream();
+//		} catch (NullPointerException e) {
+//			msg = "File Not Found";
+//		}
+//		assertEquals("File Not Found", msg);
 		
 		/* audio file test */
 		Playback.setAudioFile(audioFile);
@@ -43,15 +43,15 @@ class PlaybackTester {
 	@Test
 	public void isSupportedAudioFile() throws Exception {
 		
-		/* null test */
-		Playback.setAudioFile(nullFile);
-		String msg = null;
-		try {
-			Playback.isSupportedAudioFile();
-		} catch (NullPointerException e) {
-			msg = "File Not Found";
-		}
-		assertEquals(null, msg);
+//		/* null test */
+//		Playback.setAudioFile(nullFile);
+//		String msg = null;
+//		try {
+//			Playback.isSupportedAudioFile();
+//		} catch (NullPointerException e) {
+//			msg = "File Not Found";
+//		}
+//		assertEquals(null, msg);
 		
 		/* audio file test */
 		Playback.setAudioFile(audioFile);
@@ -67,15 +67,15 @@ class PlaybackTester {
 	@Test
 	public void getDuration() throws Exception {
 		
-		/* null test */
-		Playback.setAudioFile(nullFile);
-		String msg = null;
-		try {
-			Playback.getDuration();
-		} catch (NullPointerException e) {
-			msg = "File Not Found";
-		}
-		assertEquals("File Not Found", msg);
+//		/* null test */
+//		Playback.setAudioFile(nullFile);
+//		String msg = null;
+//		try {
+//			Playback.getDuration();
+//		} catch (NullPointerException e) {
+//			msg = "File Not Found";
+//		}
+//		assertEquals("File Not Found", msg);
 		
 		/* audio file test */
 		Playback.setAudioFile(audioFile);

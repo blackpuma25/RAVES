@@ -2,50 +2,14 @@ package visualizer;
 
 import fftHandler.FFTHandler;
 import fileSelection.FileChooser;
+import playback.Playback;
 
 public class BarVisualizer extends Visualizer{
 	private BarVisualization vis;
 	private boolean hasPlayed = false;
-	private double[][] data = new double[][] {{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-								{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-								{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-								{2, 3, 4, 5, 5, 5, 6, 7, 8, 9},
-								{3, 4, 5, 5, 5, 5, 5, 6, 7, 8},
-								{4, 5, 5, 5, 5, 5, 5, 5, 6, 7},
-								{5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-								{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-								{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-								{2, 3, 4, 5, 5, 5, 6, 7, 8, 9},
-								{3, 4, 5, 5, 5, 5, 5, 6, 7, 8},
-								{4, 5, 5, 5, 5, 5, 5, 5, 6, 7},
-								{5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-								{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-								{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-								{2, 3, 4, 5, 5, 5, 6, 7, 8, 9},
-								{3, 4, 5, 5, 5, 5, 5, 6, 7, 8},
-								{4, 5, 5, 5, 5, 5, 5, 5, 6, 7},
-								{5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-								{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-								{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-								{2, 3, 4, 5, 5, 5, 6, 7, 8, 9},
-								{3, 4, 5, 5, 5, 5, 5, 6, 7, 8},
-								{4, 5, 5, 5, 5, 5, 5, 5, 6, 7},
-								{5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-								{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-								{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-								{2, 3, 4, 5, 5, 5, 6, 7, 8, 9},
-								{3, 4, 5, 5, 5, 5, 5, 6, 7, 8},
-								{4, 5, 5, 5, 5, 5, 5, 5, 6, 7},
-								{5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-								{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-								{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-								{2, 3, 4, 5, 5, 5, 6, 7, 8, 9},
-								{3, 4, 5, 5, 5, 5, 5, 6, 7, 8},
-								{4, 5, 5, 5, 5, 5, 5, 5, 6, 7},
-								{5, 5, 5, 5, 5, 5, 5, 5, 5, 5}
-																};
+	private double[][] data = null;
 	private boolean playing = false;
-	private int delay = 50;
+	private int delay = 48;
 	private int i=0;
 	
 	//depreciated
@@ -114,7 +78,7 @@ public class BarVisualizer extends Visualizer{
 
 	@Override
 	public void skip(int t) {
-		i = data.length * (t/281);
+		i = (int) (data.length * (t/Playback.getDuration()));
 		
 	}
 

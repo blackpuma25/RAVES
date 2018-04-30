@@ -25,12 +25,12 @@ public class Options {
 	
 	/******************** Getters and Setters for each field ***********************/
 
-	public static float[] getTimeIntervals() {
-		return timeIntervals;
+	public static float getTimeIntervals(int value) {
+		return timeIntervals[value];
 	}
 
-	public static int[] getWindowSizes() {
-		return windowSizes;
+	public static int getWindowSizes(int value) {
+		return windowSizes[value];
 	}
 	
 	public static int getTimeRes() {

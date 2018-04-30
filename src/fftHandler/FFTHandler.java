@@ -33,8 +33,8 @@ public class FFTHandler {
 	
 	/* Obtains values defined by options */
 	public static void getOptions() {
-		timeInterval = Options.getTimeIntervals()[Options.getTimeRes()];
-		windowSize = Options.getWindowSizes()[Options.getFreqRes()];
+		timeInterval = Options.getTimeIntervals(Options.getTimeRes());
+		windowSize = Options.getWindowSizes(Options.getFreqRes());
 	}
 	
 	/* Create audio stream for data analysis */

@@ -13,19 +13,20 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import mainInterface.InterfaceWindow;
 import mainInterface.PlayerPanel;
+import options.Options;
 
 import javax.sound.sampled.AudioFormat.Encoding;
 
 import fileSelection.FileChooser;
 
 public class Playback {
-	
+
 	/************************************** Fields ******************************************/
-	
+
 	private static File audioFile = null; //instance of audio file
 	private static AudioInputStream audioStream = null; //instance of audio to read data
 	private static AudioFormat audioFMT = null; //keeps audio formatting info (sample rate, number of channels, etc.)
-	
+
 	private static Clip clip = null; //a clip instance used for playback and position control
 	private static Long currentFrame = (long) 0; //tracks the current frame of clip
 	private static int newPosition = 0; //stores a value of new clip position from scrubbing
@@ -33,10 +34,11 @@ public class Playback {
 	private static boolean playing = false; //tracks if sound is playing
 	private static int volPosition = 0; //stores value of volume for slider
 	private static FloatControl gainControl; //Used for storing volume level in decibels
-	
-	
+	private static boolean hasChanged = false;
+
+
 	/************************************** Methods *****************************************/
-	
+
 	/* Creates the audio stream and formating instance of audio file */
 	public static AudioInputStream createAudioStream() throws LineUnavailableException {
 		try {
@@ -49,16 +51,16 @@ public class Playback {
 			e.printStackTrace();
 		}
 		audioFMT = audioStream.getFormat();
-		
+
 		/* Volume control */
 		gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		System.out.println("Max Volume: " + gainControl.getMaximum() + " dB");
 		System.out.println("Min Volume: " + gainControl.getMinimum() + " dB");
 		PlayerPanel.initializeVolSlider();
-		
+
 		return audioStream;
 	}
-	
+
 	/* Checks if file format is supported for this program */
 	public static void isSupportedAudioFile() {
 		try {
@@ -69,7 +71,7 @@ public class Playback {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/* Closes and resets audio fields */
 	public static void closeSession() {
 		if (playing)
@@ -87,18 +89,22 @@ public class Playback {
 		audioStream = null;
 		setCurrentFrame((long) 0);
 	}
-	
+
 	/* Plays audio file and updates duration field */
 	public static void play() {
+		if (hasChanged)
+			restart();
+		hasChanged = false;
 		clip.start();
 		playing = true;
-		InterfaceWindow.getVisualizer().play();
+		if (Options.isVisualizerOn())
+			InterfaceWindow.getVisualizer().play();
 		if (playing)
 			PlayerPanel.getBtnPlay().setText("Pause");
 		PlayerPanel.updateDuration();
-		
+
 	}
-	
+
 	/* Pauses audio file */
 	public static void pause() {
 		if (playing) {
@@ -109,26 +115,26 @@ public class Playback {
 				PlayerPanel.getBtnPlay().setText("Play");
 		}
 	}
-	
+
 	/* Maintains playing state of audio player */
 	public static boolean isPlaying() {
 		return playing;
 	}
-	
+
 	/* Maintains current position while playing */
 	public static void updatePosition() {
 		do {
 			setPosition(clip.getMicrosecondPosition());
 		} while (playing);
 	}
-	
+
 	/* Sets position to beginning of scrub bar */
 	public static void resetPosition() {
 		setPosition(0);
 		PlayerPanel.getscrubSlider().setValue(0);
 	}
-	
-	
+
+
 	/* Jumps to different time section based of scrub bar value */
 	public static void scrub() {
 		newPosition = PlayerPanel.getscrubSlider().getValue();
@@ -137,7 +143,7 @@ public class Playback {
 		if (newPosition != (int) getPosition()) {
 			try {
 				jump((long) newPosition);
-				
+
 			} catch (UnsupportedAudioFileException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -150,30 +156,51 @@ public class Playback {
 			}
 		}
 	}
-	
-	 /* Maintains state of user interaction with scrub bar */
+
+	/* Maintains state of user interaction with scrub bar */
 	public static boolean isScrubbed() {
 		int newPosition = PlayerPanel.getscrubSlider().getValue();
 		if (newPosition != (int) getPosition())
 			return true;
 		return false;
 	}
-	
+
 	public static void changeVolume() {
 		volPosition = PlayerPanel.getVolSlider().getValue();
 		setVolume(volPosition);
 	}
-	
+
 	/* Jumps to specified section of audio file */
 	public static void jump(long c) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		if (c > 0 && c < clip.getMicrosecondLength()) {
 			clip.stop();
 			clip.close();
-			resetAudioStream();
+			//resetAudioStream();
 			setCurrentFrame(c);
-			clip.setMicrosecondPosition(c * 1000000);
-			clip.start();
+//			clip.setMicrosecondPosition(c * 1000000);
+//			System.out.println(playing);
+			if (playing)
+				restart();
+			else {
+				hasChanged  = true;
+			}
 		}
+	}
+	
+	public static void restart() {
+		try {
+			resetAudioStream();
+		} catch (UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		clip.setMicrosecondPosition(currentFrame * 1000000);
 	}
 
 	/* Resets audio stream for scrubbing */
@@ -182,7 +209,7 @@ public class Playback {
 		clip.open(audioStream);
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
-	
+
 	/* Calculates the duration of the audio file in seconds */
 	public static double getDuration() {
 		long audioFileLength = audioFile.length();
@@ -191,15 +218,15 @@ public class Playback {
 		double fullDuration = audioFileLength / (frameSize * frameRate);
 		return fullDuration;	
 	}
-	
+
 	/* Converts seconds to minutes and seconds string */
 	public static String convertToMinSeconds (int seconds) {
 		int minutes = seconds / 60;
 		seconds = seconds % 60;
-		
+
 		return getDigits(minutes) + " : " + getDigits(seconds);
 	}
-	
+
 	/* Helper method for digit conversion */
 	public static String getDigits (int n) {
 		if (n == 0)
@@ -208,51 +235,51 @@ public class Playback {
 			return "0" + n;
 		return String.valueOf(n);
 	}
-	
+
 	/**************************** Getters and Setters *******************************/
-	
+
 	/* Sets audio file to input file */
 	public static void setAudioFile(File file){
 		audioFile = file;
 		Position p = new Position(); //Creates thread for maintaining position
 		p.start();
 	}
-	
+
 	/* Retrieves chosen audio file from File Chooser */
 	public static File getAudioFile() {
 		return FileChooser.getCurrrentFile();
 	}
-	
+
 	/* Sets volume level */
 	public static void setVolume(float decibels) {
 		gainControl.setValue(decibels);
 	}
-	
+
 	/* Retrieves volume level */
 	public static float getVolume() {
 		return gainControl.getValue();
 	}
-	
+
 	/* Returns audio stream */
 	public static AudioInputStream getAudioStream() {
 		return audioStream;
 	}
-	
+
 	/* Returns audio format */
 	public static AudioFormat getAudioFormat() {
 		return audioFMT;
 	}
-	
+
 	/* Returns stored value for position */
 	public static double getPosition() {
 		return position;
 	}
-	
+
 	/* Sets position to input value and converts to seconds */
 	public static void setPosition(double position) {
 		Playback.position = position * 0.000001;
 	}
-	
+
 	/* Returns reference for clip */
 	public static Clip getClip() {
 		return clip;
