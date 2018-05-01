@@ -18,7 +18,7 @@ public class FileChooser {
 
 	private static File currentFile = null;
 	private static boolean selecting = false;
-	private static int returnValue = -1;
+	private static int returnValue = -1; 
 
 	/************* Methods ******************/
 
@@ -72,7 +72,6 @@ public class FileChooser {
 			}
 			Playback.isSupportedAudioFile();
 			PlayerPanel.enablePlayButton();
-			AnalyticsDisplay.enableAnalytics();
 			FileManager.setFileLoaded(true);
 		}
 	}
