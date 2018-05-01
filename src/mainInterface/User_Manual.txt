@@ -1,5 +1,18 @@
-	Our application provides a graphical display for the frequency spectrum of an audio file. It allows the user to load a WAV file saved locally on their system and supports general playback functionality.
+Our application provides a graphical display for the frequency spectrum of an audio file. 
+It allows the user to load a WAV file saved locally on their system and supports general playback functionality.
 
-	To run the application, open the .jar file. This automatically opens the main interface window and supports all of the functionality in our application.
+File Selection:
+Press "Select File" button in the top left corner to open a file explorer.
+Select any WAV file on your system.
+The name of the file and it's path will appear after it is loaded.
 
-	To run our application from source code, open the InterfaceWindow class file and run the class. This class also opens the main interface window and supports all of the functionality in our application.
+Playback:
+The bottom of the screen contains typical media playback features such as:
+Play/Pause button
+Horizontal audio scrubbing
+Vertical volume control
+
+Options:
+Adjust the frequency resolution by changing window sizes. Large window sizes yield higher resolution
+Adjust the time resolution by changing the time interval. Smaller time intervals yield higher resolution.
+Enable/Disable visualizer for desired functionality.

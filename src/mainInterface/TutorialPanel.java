@@ -3,16 +3,9 @@ package mainInterface;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileReader;
-
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
-import fileSelection.FileChooser;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 public class TutorialPanel extends JPanel {
 	

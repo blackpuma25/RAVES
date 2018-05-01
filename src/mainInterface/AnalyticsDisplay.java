@@ -6,9 +6,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import analytics.Analytics;
-
 import javax.swing.JButton;
 
 public class AnalyticsDisplay extends JPanel{
@@ -35,7 +32,6 @@ public class AnalyticsDisplay extends JPanel{
 		btnPerformAnalytics.setBounds(155, 26, 182, 29);
 		btnPerformAnalytics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Analytics.performAnalytics();
 				txtBpm.setText("Calculating BPM...");
 			}
 		});

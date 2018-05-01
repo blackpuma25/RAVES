@@ -2,15 +2,12 @@ package options;
 
 import javax.swing.JFrame;
 import mainInterface.InterfaceWindow;
-import playback.Playback;
 
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-import fileSelection.FileChooser;
 
 import javax.swing.JSpinner;
 import javax.swing.JButton;
@@ -20,10 +17,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 public class OptionsMenu extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8234393176541053362L;
 	public static int[] optionValues;
 	private JTextField txtTimeResolution;
 	private JTextField txtFrequencyResolution;

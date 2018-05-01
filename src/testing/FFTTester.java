@@ -9,8 +9,9 @@ import fftHandler.FFTHandler;
 
 public class FFTTester {
 	
-	private static double[][] reference;
-	private static File audioFile = new File("/Users/Batman/Documents/GitHub/RAVES/src/testing/A River Flows in You.wav"); //pathname may need to be edited for testing on personal machine;
+	private static double[][] reference;	
+	private static File audioFile = new File("testing/A River Flows in You.wav");
+
 	
 	@SuppressWarnings("deprecation")
 	@Test

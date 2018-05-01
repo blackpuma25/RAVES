@@ -1,18 +1,19 @@
 package mainInterface;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class TutorialDisplay extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2004007389987770513L;
 	private static File manual = new File("mainInterface/User_Manual.txt");
 	private static JTextArea txtrTutorialText;
 	
@@ -24,6 +25,7 @@ public class TutorialDisplay extends JFrame {
 		getContentPane().setLayout(null);
 		
 		txtrTutorialText = new JTextArea();
+		txtrTutorialText.setEditable(false);
 		txtrTutorialText.setWrapStyleWord(true);
 		txtrTutorialText.setText("Tutorial Text");
 		txtrTutorialText.setBounds(30, 30, 930, 630);
