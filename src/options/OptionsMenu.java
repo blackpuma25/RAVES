@@ -2,13 +2,16 @@ package options;
 
 import javax.swing.JFrame;
 import mainInterface.InterfaceWindow;
+import playback.Playback;
+
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import fileSelection.FileChooser;
 
-import javax.swing.JList;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -30,12 +33,17 @@ public class OptionsMenu extends JFrame {
 	private static JSpinner fSpinner;
 	private static JSpinner vSpinner;
 	
+	private static JTextArea txtrTvalue;
+	private static JTextArea txtrFvalue;
+	private static JTextArea txtrOnoff;
+	
+	private static int spinnerValue;
+	
 	public OptionsMenu() {
 		setTitle("Options");
 		
 		/*Initialize Options Menu */
 		setSize(800, 500);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		getContentPane().setLayout(null);
@@ -65,16 +73,40 @@ public class OptionsMenu extends JFrame {
 		tSpinner = new JSpinner(tModel);
 		tSpinner.setBounds(392, 100, 33, 26);
 		getContentPane().add(tSpinner);
+		tSpinner.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				txtrTvalue.setText(String.valueOf(Options.getTimeIntervals((int) tSpinner.getValue())));
+			}
+		});
 		
 		SpinnerNumberModel fModel = new SpinnerNumberModel(Options.getFreqRes(), 0, 6, 1);
 		fSpinner = new JSpinner(fModel);
 		fSpinner.setBounds(392, 175, 33, 26);
 		getContentPane().add(fSpinner);
+		fSpinner.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				txtrFvalue.setText(String.valueOf(Options.getWindowSizes((int) fSpinner.getValue())));
+			}
+		});
 		
 		SpinnerNumberModel vModel = new SpinnerNumberModel(1, 0, 1, 1);
 		vSpinner = new JSpinner(vModel);
 		vSpinner.setBounds(392, 250, 33, 26);
+		spinnerValue = (int) vSpinner.getValue();
 		getContentPane().add(vSpinner);
+		vSpinner.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				spinnerValue = (int) vSpinner.getValue();
+				if (spinnerValue == 1)
+					txtrOnoff.setText("On");
+				else {
+					txtrOnoff.setText("Off");
+				}
+			}
+		});
 		
 		JButton btnSaveOptions = new JButton("Save Options");
 		btnSaveOptions.setBounds(350, 387, 117, 29);
@@ -94,24 +126,27 @@ public class OptionsMenu extends JFrame {
 		getContentPane().add(txtVisualizer);
 		txtVisualizer.setColumns(10);
 		
-		JTextArea txtrTvalue = new JTextArea();
+		txtrTvalue = new JTextArea();
 		txtrTvalue.setBackground(Color.LIGHT_GRAY);
-		txtrTvalue.setText("TValue");
+		txtrTvalue.setText(String.valueOf(Options.getTimeIntervals((int) tSpinner.getValue())));
 		txtrTvalue.setBounds(487, 105, 100, 16);
 		getContentPane().add(txtrTvalue);
 		
-		JTextArea txtrFvalue = new JTextArea();
-		txtrFvalue.setText("FValue");
+		txtrFvalue = new JTextArea();
+		txtrFvalue.setText(String.valueOf(Options.getWindowSizes((int) fSpinner.getValue())));
 		txtrFvalue.setBackground(Color.LIGHT_GRAY);
 		txtrFvalue.setBounds(487, 180, 100, 16);
 		getContentPane().add(txtrFvalue);
 		
-		JTextArea txtrOnoff = new JTextArea();
-		txtrOnoff.setText("On/Off");
+		txtrOnoff = new JTextArea();
+		if (Options.isVisualizerOn())
+			txtrOnoff.setText("On");
+		else {
+			txtrOnoff.setText("Off");
+		}
 		txtrOnoff.setBackground(Color.LIGHT_GRAY);
 		txtrOnoff.setBounds(487, 255, 100, 16);
 		getContentPane().add(txtrOnoff);
-		
 		
 	}
 	
@@ -128,6 +163,9 @@ public class OptionsMenu extends JFrame {
 	public static int getVSpinner() {
 		return (int) vSpinner.getValue();
 	}
+	
+	/* Methods to display the values of each parameter */
+	
 	
 	public static void main(String ars[]) {
 		InterfaceWindow.disableMainWindow();

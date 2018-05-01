@@ -76,10 +76,12 @@ public class InterfaceWindow extends JFrame{
 	
 	public static void disableMainWindow() {
 		interfaceWindow.setEnabled(false);
+		interfaceWindow.setVisible(false);
 	}
 	
 	public static void enableMainWindow() {
 		interfaceWindow.setEnabled(true);
+		interfaceWindow.setVisible(true);
 	}
 	
 	public static void main(String[] args) {

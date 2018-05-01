@@ -49,13 +49,13 @@ public class FileMenu extends JPanel{
 		
 		txtFileName = new JTextField();
 		txtFileName.setText("File Name: ");
-		txtFileName.setBounds(124, 42, 261, 26);
+		txtFileName.setBounds(33, 42, 430, 26);
 		add(txtFileName);
 		txtFileName.setColumns(10);
 		
 		txtFilePath = new JTextField();
 		txtFilePath.setText("File Path: ");
-		txtFilePath.setBounds(86, 94, 333, 26);
+		txtFilePath.setBounds(33, 94, 430, 26);
 		add(txtFilePath);
 		txtFilePath.setColumns(10);
 	}

@@ -22,8 +22,14 @@ public class Options {
 	public static void updateOptions() {
 		//set values to integer values from options menu panel
 		setTimeRes(OptionsMenu.getTSpinner());
-		setFreqRes(OptionsMenu.getFSpinner());
+		setFreqRes(OptionsMenu.getFSpinner()); 
 		setVisualizerOn(OptionsMenu.getVSpinner());
+		
+		System.out.println("Saved new values");
+		
+		System.out.println(getTimeRes());
+		System.out.println(getFreqRes());
+		System.out.println(isVisualizerOn());
 	}
 	
 	/******************** Getters and Setters for each field ***********************/
