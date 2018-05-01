@@ -21,6 +21,9 @@ public class Options {
 	/* Gets options defined by user */
 	public static void updateOptions() {
 		//set values to integer values from options menu panel
+		setTimeRes(OptionsMenu.getTSpinner());
+		setFreqRes(OptionsMenu.getFSpinner());
+		setVisualizerOn(OptionsMenu.getVSpinner());
 	}
 	
 	/******************** Getters and Setters for each field ***********************/
@@ -53,8 +56,11 @@ public class Options {
 		return visualizerOn;
 	}
 
-	public static void setVisualizerOn(boolean visualizerOn) {
-		Options.visualizerOn = visualizerOn;
+	public static void setVisualizerOn(int visual) {
+		if (visual == 0)
+			visualizerOn = false;
+		else
+			visualizerOn = true;
 	}
 
 }

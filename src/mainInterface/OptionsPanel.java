@@ -2,6 +2,9 @@ package mainInterface;
 
 import java.awt.Color;
 import javax.swing.JPanel;
+
+import options.OptionsMenu;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -18,12 +21,13 @@ public class OptionsPanel extends JPanel {
 		setBounds(0, 400, 225, 103);
 		setLayout(null);
 		
-		JButton btnOptionsMenh = new JButton("Options Menu");
-		btnOptionsMenh.addActionListener(new ActionListener() {
+		JButton btnOptionsMenu = new JButton("Options Menu");
+		btnOptionsMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				OptionsMenu.main(null);
 			}
 		});
-		btnOptionsMenh.setBounds(53, 43, 117, 29);
-		add(btnOptionsMenh);
+		btnOptionsMenu.setBounds(53, 43, 117, 29);
+		add(btnOptionsMenu);
 	}
 }
