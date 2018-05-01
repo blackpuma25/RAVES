@@ -56,7 +56,7 @@ public class Playback {
 		gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		System.out.println("Max Volume: " + gainControl.getMaximum() + " dB");
 		System.out.println("Min Volume: " + gainControl.getMinimum() + " dB");
-		PlayerPanel.initializeVolSlider();
+		//PlayerPanel.initializeVolSlider();
 
 		return audioStream;
 	}
@@ -177,8 +177,8 @@ public class Playback {
 			clip.close();
 			//resetAudioStream();
 			setCurrentFrame(c);
-//			clip.setMicrosecondPosition(c * 1000000);
-//			System.out.println(playing);
+			//			clip.setMicrosecondPosition(c * 1000000);
+			//			System.out.println(playing);
 			if (playing)
 				restart();
 			else {
@@ -186,7 +186,7 @@ public class Playback {
 			}
 		}
 	}
-	
+
 	public static void restart() {
 		try {
 			resetAudioStream();

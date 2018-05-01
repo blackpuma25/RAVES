@@ -17,8 +17,6 @@ public class Analytics {
 		fftReference = FFTHandler.getFFTData(FileChooser.getCurrrentFile());
 		BPM b = new BPM();
 		b.start();
-		Key k = new Key();
-		k.start();
 	}
 
 }

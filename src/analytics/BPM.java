@@ -1,6 +1,7 @@
 package analytics;
 
 import fftHandler.FFTHandler;
+import playback.Playback;
 
 public class BPM extends Thread {
 	
@@ -23,19 +24,29 @@ public class BPM extends Thread {
 		windowRes = FFTHandler.getWindowSize();
 		
 		/* Determine number of frequency bands to use */
-		// Window size/2
-		
+		int numBands = windowRes/2;
 		
 		/* Determine number of time intervals in a frame */
-		// Length of frame/time interval
+		float frameRate = Playback.getAudioFormat().getFrameRate(); //frames per second
+		float frameLength = 1/frameRate;
+		int intervalsPerFrame = (int) (frameLength/timeRes);
 		
 		/* For each band and each frame, compute time at which peak amplitude occurs */
+		double maxAmplitude = 0;
+		int peakTime = 0;
+		for (int i = 0; i < Analytics.getFFTReference().length; i++) {
+			for (int j = 0; j < numBands; j++) {
+				if (Analytics.getFFTReference()[i][j] > maxAmplitude) {
+					maxAmplitude = Analytics.getFFTReference()[i][j];
+					peakTime = j;
+				}
+			}
+		}
 		
-		/* Have an estimate for the period at which next peak will occur? */
+		/* Calculate space between next peak */
+		
 		
 		/* Based off pattern of time intervals, calculate BPM */
-		
-		//May need to add a variation for peak amplitudes
 		
 		return 0;
 	}

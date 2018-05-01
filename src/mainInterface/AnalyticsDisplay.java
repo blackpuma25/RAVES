@@ -18,7 +18,6 @@ public class AnalyticsDisplay extends JPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 	private static JTextField txtBpm;
-	private static JTextField txtKey;
 	private static JButton btnPerformAnalytics;
 	
 	public AnalyticsDisplay() {
@@ -28,15 +27,9 @@ public class AnalyticsDisplay extends JPanel{
 		
 		txtBpm = new JTextField();
 		txtBpm.setText("BPM: ");
-		txtBpm.setBounds(34, 78, 130, 26);
+		txtBpm.setBounds(183, 77, 130, 26);
 		add(txtBpm);
 		txtBpm.setColumns(10);
-		
-		txtKey = new JTextField();
-		txtKey.setText("Key: ");
-		txtKey.setBounds(337, 78, 130, 26);
-		add(txtKey);
-		txtKey.setColumns(10);
 		
 		btnPerformAnalytics = new JButton("Perform Analytics");
 		btnPerformAnalytics.setBounds(155, 26, 182, 29);
@@ -44,7 +37,6 @@ public class AnalyticsDisplay extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				Analytics.performAnalytics();
 				txtBpm.setText("Calculating BPM...");
-				txtKey.setText("Calculating Key...");
 			}
 		});
 		btnPerformAnalytics.setEnabled(false);

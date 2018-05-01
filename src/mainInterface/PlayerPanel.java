@@ -52,15 +52,8 @@ public class PlayerPanel extends JPanel {
 		scrubSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-//				System.out.println(scrubSlider.getValue());
-//				JSlider source = (JSlider)e.getSource();
-//				if(source.getValueIsAdjusting()) {
-//				
-//				}
 				if (Playback.isScrubbed()) {
 					Playback.scrub();
-					
-					//InterfaceWindow.getVisualizer().skip(0);
 				}
 				
 			}
@@ -84,6 +77,7 @@ public class PlayerPanel extends JPanel {
 		volSlider = new JSlider();
 		volSlider.setOrientation(SwingConstants.VERTICAL);
 		volSlider.setBounds(491, 0, 53, 103);
+		initializeVolSlider();
 		volSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {

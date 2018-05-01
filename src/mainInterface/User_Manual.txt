@@ -1,0 +1,5 @@
+	Our application provides a graphical display for the frequency spectrum of an audio file. It allows the user to load a WAV file saved locally on their system and supports general playback functionality.
+
+	To run the application, open the .jar file. This automatically opens the main interface window and supports all of the functionality in our application.
+
+	To run our application from source code, open the InterfaceWindow class file and run the class. This class also opens the main interface window and supports all of the functionality in our application.
